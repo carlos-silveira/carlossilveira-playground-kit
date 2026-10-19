@@ -168,37 +168,113 @@ if ($csLabUser === null) {
   </style>
 </head>
 <body>
-  <!-- SVG Optical Refraction Filter -->
-  <svg width="0" height="0" style="position:absolute; pointer-events:none;" aria-hidden="true">
-    <defs>
-      <filter id="lg-refraction" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-    </defs>
-  </svg>
+  <!-- High-Performance Living Ambient Mesh Backdrop -->
+  <div class="lg-ambient-canvas" aria-hidden="true"></div>
 
-  <!-- Living Ambient Mesh Backdrop -->
-  <div class="lg-ambient-canvas" aria-hidden="true">
-    <div class="lg-orb lg-orb-sapphire"></div>
-    <div class="lg-orb lg-orb-indigo"></div>
-    <div class="lg-orb lg-orb-aqua"></div>
-    <div class="lg-orb lg-orb-rose"></div>
-  </div>
+  <!-- Unified Floating Liquid Glass Navbar -->
+  <header class="cs-site-header">
+    <div class="cs-container-wide">
+      <div class="cs-nav-shell" id="cs-nav-shell">
+        <div class="cs-nav-bar">
+          <!-- Brand Wordmark -->
+          <a href="/lab/" class="cs-brand-link" aria-label="Carlos Silveira — Labs">
+            <span class="cs-brand-wordmark">
+              <span class="cs-brand-first">Carlos</span>
+              <span class="cs-brand-last">Silveira</span>
+              <span class="cs-brand-badge">.lab</span>
+            </span>
+          </a>
 
-  <header class="lg-navbar">
-    <a href="/lab/" class="lg-brand-link" aria-label="Carlos Silveira Lab">
-      <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-wordmark.svg" alt="Carlos Silveira .dev" style="height:32px; width:auto;">
-    </a>
-    <nav class="lg-nav-links">
-      <a href="/" class="lg-nav-item">Blog</a>
-      <a href="/tools/" class="lg-nav-item">Tools</a>
-      <a href="/lab/" class="lg-nav-item active">Private Lab</a>
-      <button type="button" class="lg-btn lg-btn-secondary" id="theme-toggle-btn">
-        <span class="theme-opt-dark">&#9790; Modo Oscuro</span>
-        <span class="theme-opt-light">&#9728; Modo Claro</span>
-      </button>
-    </nav>
+          <!-- Desktop Navigation Links -->
+          <nav class="cs-nav-desktop" aria-label="Navegación Principal">
+            <a href="/" class="cs-nav-link">
+              Blog
+            </a>
+            <a href="/#articulos" class="cs-nav-link">
+              Artículos
+            </a>
+            <a href="/tools/" class="cs-nav-link">
+              Herramientas
+            </a>
+            <a href="/lab/" class="cs-nav-link is-active" aria-current="page">
+              Private Lab 🔒
+            </a>
+          </nav>
+
+          <!-- Actions: Theme Toggle + Mobile Menu Button -->
+          <div class="cs-nav-actions">
+            <button
+              type="button"
+              class="cs-theme-toggle"
+              id="cs-theme-toggle"
+              data-theme-toggle
+              aria-label="Cambiar tema claro / oscuro"
+              title="Cambiar tema"
+            >
+              <span class="cs-theme-icon-dark" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </span>
+              <span class="cs-theme-icon-light" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"/>
+                  <line x1="12" y1="1" x2="12" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="23"/>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                  <line x1="1" y1="12" x2="3" y2="12"/>
+                  <line x1="21" y1="12" x2="23" y2="12"/>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="cs-mobile-menu-btn"
+              id="cs-mobile-toggle"
+              data-mobile-toggle
+              aria-label="Abrir menú"
+              aria-expanded="false"
+            >
+              <svg class="cs-icon-hamburger" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+              <svg class="cs-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="cs-mobile-drawer" id="cs-mobile-drawer" aria-hidden="true">
+          <nav class="cs-mobile-nav">
+            <a href="/" class="cs-mobile-link">
+              <span class="cs-mobile-icon">📰</span>
+              <span>Blog</span>
+            </a>
+            <a href="/#articulos" class="cs-mobile-link">
+              <span class="cs-mobile-icon">✍️</span>
+              <span>Artículos</span>
+            </a>
+            <a href="/tools/" class="cs-mobile-link">
+              <span class="cs-mobile-icon">🛠️</span>
+              <span>Herramientas (/tools/)</span>
+            </a>
+            <a href="/lab/" class="cs-mobile-link is-active" aria-current="page">
+              <span class="cs-mobile-icon">🔒</span>
+              <span>Private Lab</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main class="lg-container login-shell">

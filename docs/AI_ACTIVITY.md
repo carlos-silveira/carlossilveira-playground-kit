@@ -2,6 +2,17 @@
 
 All AI agent actions and modifications in this repository are recorded below in reverse-chronological order.
 
+## 2026-10-19 — Unified Responsive Navigation & 120fps Scroll Performance
+
+- **Agent**: Antigravity Assistant
+- **Summary of Changes**:
+  1. Updated `public/auth.php` and `public/index.php` with the unified `.cs-nav-bar` and sliding `.cs-mobile-drawer`.
+  2. Implemented adaptive inline wordmark (`CarlosSilveira.dev`) with theme tokens.
+  3. Disabled continuous ambient orb animations in `liquid-glass.css`, restoring 120fps scrolling.
+  4. Streamlined pointer glow event listener to mouse-only.
+
+---
+
 ## 2026-10-19 — Wordmark Branding Unification, Favicon Isolation & Performance Optimization
 
 - **Agent**: Antigravity Assistant

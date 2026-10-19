@@ -1,10 +1,12 @@
 /**
- * Carlos Silveira — Liquid Glass Interactive Physics & Theme Toggle
+ * Carlos Silveira — Liquid Glass Interactive Physics, Mobile Drawer & Theme Toggle
  */
 (function () {
-  // 1. Two-State Compliant Color Scheme Toggle
+  'use strict';
+
+  // 1. Two-State Compliant Color Scheme Toggle (supports #cs-theme-toggle, [data-theme-toggle], #theme-toggle-btn)
   const meta = document.querySelector('meta[name="color-scheme"]');
-  const toggleBtn = document.getElementById('theme-toggle-btn');
+  const themeToggleBtns = document.querySelectorAll('#cs-theme-toggle, [data-theme-toggle], #theme-toggle-btn');
 
   function getSystemScheme() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -25,21 +27,23 @@
     }
   }
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function () {
-      const systemScheme = getSystemScheme();
-      const currentRendered = getStoredScheme() ?? systemScheme;
-      const targetScheme = currentRendered === 'dark' ? 'light' : 'dark';
+  function toggleTheme() {
+    const systemScheme = getSystemScheme();
+    const currentRendered = getStoredScheme() ?? systemScheme;
+    const targetScheme = currentRendered === 'dark' ? 'light' : 'dark';
 
-      if (targetScheme !== systemScheme) {
-        try { localStorage.setItem('color-scheme', targetScheme); } catch (_) {}
-        applyScheme(targetScheme);
-      } else {
-        try { localStorage.removeItem('color-scheme'); } catch (_) {}
-        applyScheme(null);
-      }
-    });
+    if (targetScheme !== systemScheme) {
+      try { localStorage.setItem('color-scheme', targetScheme); } catch (_) {}
+      applyScheme(targetScheme);
+    } else {
+      try { localStorage.removeItem('color-scheme'); } catch (_) {}
+      applyScheme(null);
+    }
   }
+
+  themeToggleBtns.forEach((btn) => {
+    btn.addEventListener('click', toggleTheme);
+  });
 
   window.addEventListener('storage', function (e) {
     if (e.key === 'color-scheme') {
@@ -47,15 +51,38 @@
     }
   });
 
-  // 2. Specular Cursor Spotlight Sheen on .lg-card
+  // 2. High-Performance Pointer-Reactive Specular Sheen (Mouse only, no loop)
   document.addEventListener('pointermove', function (e) {
-    const cards = document.querySelectorAll('.lg-card');
-    cards.forEach(function (card) {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', x + 'px');
-      card.style.setProperty('--mouse-y', y + 'px');
-    });
+    if (e.pointerType !== 'mouse') return;
+    const card = e.target.closest?.('.lg-card');
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+    card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
   }, { passive: true });
+
+  // 3. Mobile Drawer Toggle
+  const mobileToggleBtn = document.getElementById('cs-mobile-toggle') || document.querySelector('[data-mobile-toggle]');
+  const navShell = document.getElementById('cs-nav-shell') || document.querySelector('.cs-nav-shell');
+  const mobileDrawer = document.getElementById('cs-mobile-drawer') || document.querySelector('.cs-mobile-drawer');
+
+  if (mobileToggleBtn && navShell) {
+    mobileToggleBtn.addEventListener('click', function () {
+      const isOpen = navShell.classList.toggle('is-menu-open');
+      mobileToggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (mobileDrawer) {
+        mobileDrawer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (navShell.classList.contains('is-menu-open') && !navShell.contains(e.target)) {
+        navShell.classList.remove('is-menu-open');
+        mobileToggleBtn.setAttribute('aria-expanded', 'false');
+        if (mobileDrawer) {
+          mobileDrawer.setAttribute('aria-hidden', 'true');
+        }
+      }
+    });
+  }
 })();
