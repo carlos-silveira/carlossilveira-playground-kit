@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+target/
+out/
+.next/
+__pycache__/
+*.pyc
+*.class

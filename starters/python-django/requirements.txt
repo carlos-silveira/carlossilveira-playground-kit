@@ -1,0 +1,4 @@
+# Python 3.12 dependencies for Spaceship CloudLinux (/opt/alt/python312/bin/python3)
+# Uncomment Django or FastAPI/ASGIToWSGI as needed:
+# Django>=5.1,<5.2
+# asgiref>=3.8.1
