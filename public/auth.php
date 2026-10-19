@@ -115,6 +115,11 @@ if ($csLabUser === null) {
     } catch (_) {}
   </script>
   <title>Acceso Privado — Carlos Silveira Lab</title>
+
+  <!-- Favicon (Uses CS logo-mark ONLY) -->
+  <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-mark.svg">
+  <link rel="apple-touch-icon" href="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-mark.svg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -138,30 +143,6 @@ if ($csLabUser === null) {
       .login-grid {
         grid-template-columns: 1fr;
       }
-    }
-    .brand-showcase-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-top: 24px;
-    }
-    .brand-mini-card {
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--lg-surface-elevated);
-      border: 1px solid var(--lg-border);
-      box-shadow: var(--lg-specular);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .brand-mini-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
     }
     .login-field {
       margin-bottom: 18px;
@@ -207,7 +188,7 @@ if ($csLabUser === null) {
 
   <header class="lg-navbar">
     <a href="/lab/" class="lg-brand-link" aria-label="Carlos Silveira Lab">
-      <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-combined.svg" alt="Carlos Silveira .dev">
+      <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-wordmark.svg" alt="Carlos Silveira .dev" style="height:32px; width:auto;">
     </a>
     <nav class="lg-nav-links">
       <a href="/" class="lg-nav-item">Blog</a>
@@ -222,7 +203,7 @@ if ($csLabUser === null) {
 
   <main class="lg-container login-shell">
     <div class="login-grid">
-      <!-- Left Column: Context & Brand Identity -->
+      <!-- Left Column: Context -->
       <section class="lg-card" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
           <span class="lg-badge">&#128274; Espacio Interno de Desarrollo</span>
@@ -234,34 +215,21 @@ if ($csLabUser === null) {
           </p>
         </div>
 
-        <div>
-          <div style="font-family:var(--font-display); font-size:13px; font-weight:700; color:var(--text-secondary); margin-bottom:8px;">
-            Sistema de Identidad Visual — 3 Variantes Oficiales
-          </div>
-          <div class="brand-showcase-row">
-            <div class="brand-mini-card">
-              <span class="brand-mini-label">1. Solo el Logo (Isotipo)</span>
-              <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-mark.svg" alt="CS Logo Mark" style="height:44px; width:44px;">
-            </div>
-            <div class="brand-mini-card">
-              <span class="brand-mini-label">2. Puro Texto (Wordmark)</span>
-              <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-wordmark.svg" alt="Carlos Silveira Wordmark" style="height:32px; width:auto; max-width:100%;">
-            </div>
-            <div class="brand-mini-card">
-              <span class="brand-mini-label">3. Combinado (Imagotipo)</span>
-              <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-combined.svg" alt="Carlos Silveira Combined" style="height:34px; width:auto; max-width:100%;">
-            </div>
-          </div>
+        <div style="padding: 16px 20px; border-radius: 18px; background: var(--lg-surface-elevated); border: 1px solid var(--lg-border); box-shadow: var(--lg-specular); font-size: 14px; color: var(--text-secondary);">
+          <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">🚀 Despliegues con un solo comando</strong>
+          Usa <code>./scripts/deploy-lab.sh &lt;app-dir&gt;</code> para sincronizar proyectos a Spaceship con configuración automática de Passenger WSGI o CGI.
         </div>
       </section>
 
       <!-- Right Column: Login Form -->
       <section class="lg-card" style="display:flex; flex-direction:column; justify-content:center;">
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
-          <img src="<?= htmlspecialchars($assetsPrefix) ?>/brand/logo-mark.svg" alt="CS" width="48" height="48">
+          <div style="width:46px; height:46px; border-radius:14px; background:var(--lg-surface-elevated); border:1px solid var(--lg-border); display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:var(--lg-specular); flex-shrink:0;">
+            🔐
+          </div>
           <div>
-            <h2 style="font-size:24px; font-weight:800;">Iniciar Sesión en Lab</h2>
-            <div style="font-size:14px; color:var(--text-secondary);">Acceso exclusivo para Carlos Silveira</div>
+            <h2 style="font-size:22px; font-weight:800; margin:0;">Iniciar Sesión en Lab</h2>
+            <div style="font-size:13.5px; color:var(--text-secondary);">Acceso exclusivo para Carlos Silveira</div>
           </div>
         </div>
 

@@ -102,6 +102,11 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
   </script>
   <title>Mis Micro-Apps — Carlos Silveira Private Lab</title>
   <meta name="description" content="Panel privado de micro-aplicaciones y despliegues rápidos de Carlos Silveira en carlossilveira.dev/lab/.">
+
+  <!-- Favicon (Uses CS logo-mark ONLY) -->
+  <link rel="icon" type="image/svg+xml" href="./assets/brand/logo-mark.svg">
+  <link rel="apple-touch-icon" href="./assets/brand/logo-mark.svg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -191,23 +196,6 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
       box-shadow: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.2);
       overflow-x: auto;
     }
-    .brand-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 22px;
-    }
-    .brand-preview-stage {
-      height: 110px;
-      border-radius: 18px;
-      background: var(--lg-surface-elevated);
-      border: 1px solid var(--lg-border);
-      box-shadow: var(--lg-specular);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      margin: 14px 0;
-    }
   </style>
 </head>
 <body>
@@ -232,14 +220,13 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
   <!-- Top Liquid Glass Navbar -->
   <header class="lg-navbar">
     <a href="/lab/" class="lg-brand-link">
-      <img src="./assets/brand/logo-combined.svg" alt="Carlos Silveira .dev">
+      <img src="./assets/brand/logo-wordmark.svg" alt="Carlos Silveira .dev" style="height:32px; width:auto;">
     </a>
     <nav class="lg-nav-links" aria-label="Navegación Principal">
       <a href="/" class="lg-nav-item">Blog</a>
       <a href="/tools/" class="lg-nav-item">Tools</a>
       <a href="/lab/" class="lg-nav-item active">Mis Micro-Apps</a>
       <a href="#deploy-workflow" class="lg-nav-item">Desplegar Proyecto</a>
-      <a href="#brand-kit" class="lg-nav-item">Logos &amp; Marca</a>
       <button type="button" class="lg-btn lg-btn-secondary" id="theme-toggle-btn">
         <span class="theme-opt-dark">&#9790; Oscuro</span>
         <span class="theme-opt-light">&#9728; Claro</span>
@@ -439,61 +426,6 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
           <div style="font-size:13.5px; color:var(--text-secondary); margin-top:14px;">
             Al ejecutar <code>./scripts/deploy-lab.sh</code>, el script genera automáticamente <code>app.json</code> si no existe, compila si es Go/Rust/Next.js, sincroniza los archivos por SSH a <code>server58</code> y la micro-app aparece al instante en este panel en <code>https://carlossilveira.dev/lab/<span id="live-slug-preview">mi-tienda-shopify</span>/</code>.
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Official Brand Logo System (3 Variants) -->
-    <section style="margin-top: 56px;" id="brand-kit">
-      <div style="margin-bottom: 24px;">
-        <span class="lg-badge">Identidad Visual Oficial</span>
-        <h2 class="lg-section-title" style="margin-top:10px;">Logo de Carlos Silveira — 3 Versiones Oficiales</h2>
-        <p style="color:var(--text-secondary); max-width:760px; margin:6px 0 0;">
-          Disponibles en <code>/lab/assets/brand/</code> para usar en el blog, calculadoras y todas tus micro-apps.
-        </p>
-      </div>
-
-      <div class="brand-grid">
-        <div class="lg-card">
-          <span class="lg-badge">Versión 1 — Isotipo</span>
-          <h3 style="font-size:19px; font-weight:800; margin-top:10px;">Solo el Logo (`logo-mark.svg`)</h3>
-          <div class="brand-preview-stage">
-            <img src="./assets/brand/logo-mark.svg" alt="Carlos Silveira Logo Mark" width="64" height="64">
-          </div>
-          <p style="font-size:13.5px; color:var(--text-secondary); margin:0 0 14px;">
-            Squircle de cristal líquido con gradiente zafiro-índigo-aqua, reflejo especular superior y monograma continuo <strong>CS</strong>.
-          </p>
-          <a href="./assets/brand/logo-mark.svg" download class="lg-btn lg-btn-secondary" style="width:100%;">
-            Descargar SVG
-          </a>
-        </div>
-
-        <div class="lg-card">
-          <span class="lg-badge">Versión 2 — Logotipo</span>
-          <h3 style="font-size:19px; font-weight:800; margin-top:10px;">Puro Texto (`logo-wordmark.svg`)</h3>
-          <div class="brand-preview-stage">
-            <img src="./assets/brand/logo-wordmark.svg" alt="Carlos Silveira Wordmark" style="max-width:100%; height:42px;">
-          </div>
-          <p style="font-size:13.5px; color:var(--text-secondary); margin:0 0 14px;">
-            Tipografía geométrica <code>Plus Jakarta Sans</code> ExtraBold con apellido en gradiente refractivo y píldora <code>.dev</code>.
-          </p>
-          <a href="./assets/brand/logo-wordmark.svg" download class="lg-btn lg-btn-secondary" style="width:100%;">
-            Descargar SVG
-          </a>
-        </div>
-
-        <div class="lg-card">
-          <span class="lg-badge">Versión 3 — Imagotipo</span>
-          <h3 style="font-size:19px; font-weight:800; margin-top:10px;">Combinado (`logo-combined.svg`)</h3>
-          <div class="brand-preview-stage">
-            <img src="./assets/brand/logo-combined.svg" alt="Carlos Silveira Combined Logo" style="max-width:100%; height:46px;">
-          </div>
-          <p style="font-size:13.5px; color:var(--text-secondary); margin:0 0 14px;">
-            Versión principal para cabeceras de navegación uniendo el squircle <strong>CS</strong> con el wordmark completo.
-          </p>
-          <a href="./assets/brand/logo-combined.svg" download class="lg-btn lg-btn-secondary" style="width:100%;">
-            Descargar SVG
-          </a>
         </div>
       </div>
     </section>

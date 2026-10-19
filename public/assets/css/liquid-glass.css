@@ -41,7 +41,7 @@
                  inset 0 0 20px 0 rgba(255, 255, 255, 0.25);
   --lg-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.1),
                0 4px 16px -2px rgba(15, 23, 42, 0.05);
-  --lg-blur: blur(28px) saturate(200%) contrast(1.04);
+  --lg-blur: blur(16px) saturate(180%);
 
   --accent-primary: #0066ff;
   --accent-secondary: #6366f1;
@@ -143,9 +143,11 @@ body {
 .lg-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(95px);
-  opacity: 0.48;
+  filter: blur(40px);
+  opacity: 0.45;
+  contain: strict;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
   animation: lgOrbFloat 22s ease-in-out infinite alternate;
 }
 

@@ -2,6 +2,17 @@
 
 All AI agent actions and modifications in this repository are recorded below in reverse-chronological order.
 
+## 2026-10-19 — Wordmark Branding Unification, Favicon Isolation & Performance Optimization
+
+- **Agent**: Antigravity Assistant
+- **Summary of Changes**:
+  1. Updated `public/auth.php` and `public/index.php` to display **only the text wordmark (`logo-wordmark.svg`)** in header navbars.
+  2. Isolated `logo-mark.svg` strictly for favicon `<link rel="icon">` and `<link rel="apple-touch-icon">`.
+  3. Removed the 3-variant logo showcase blocks from both `public/auth.php` and `public/index.php`.
+  4. Optimized GPU/rendering performance in `public/assets/css/liquid-glass.css` (reduced shader blur radius to `16px`, ambient orb blur to `40px` with `contain: strict;`).
+
+---
+
 ## 2026-10-19 — Liquid Glass Design System, Private Auth Gate & Micro-App Launcher
 
 - **Agent**: Antigravity Assistant
