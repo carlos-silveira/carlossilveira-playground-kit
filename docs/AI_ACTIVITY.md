@@ -2,6 +2,25 @@
 
 All AI agent actions and modifications in this repository are recorded below in reverse-chronological order.
 
+## 2026-10-19 — Liquid Glass Design System, Private Auth Gate & Micro-App Launcher
+
+- **Agent**: Antigravity Assistant
+- **Summary of Changes**:
+  1. **Liquid Glass Design System (`.agents/skills/liquid-glass-design/SKILL.md`)**:
+     - Applied unified typography (`Plus Jakarta Sans` + `Inter`), ambient mesh backdrop (`.lg-ambient-canvas`), refractive frosted glass (`backdrop-filter: blur(28px) saturate(200%) contrast(1.04)`), dual specular rim lighting, and wide horizontal layout (`min(1380px, 94vw)`).
+     - Integrated official brand SVG logos (`logo-combined.svg`, `logo-mark.svg`, `logo-wordmark.svg`).
+  2. **Private Authentication Gate (`public/auth.php`)**:
+     - Secured the entire `/lab/` portal behind WordPress authentication (`../wp-load.php`, `wp_validate_auth_cookie`, `current_user_can('manage_options')`).
+     - Added in-place login form that handles `wp_signon` securely with zero hardcoded credentials, redirecting authenticated sessions and denying unauthorized public access with HTTP 401.
+  3. **Dynamic Micro-App Launcher (`public/index.php`)**:
+     - Replaced static `index.html` with dynamic PHP launchpad that scans subdirectories for `app.json` manifests and displays deployed micro-apps with status badges, runtimes, ports/endpoints, and stack icons.
+  4. **Shopify Django Micro-App (`public/shopify-django-app/`)**:
+     - Added starter Django Shopify integration micro-app with `app.json`, `.htaccess`, and runtime configuration for CloudLinux Python 3.12 Passenger WSGI.
+  5. **Lab Deploy Script (`scripts/deploy-lab.sh`)**:
+     - Created executable CLI tool (`./scripts/deploy-lab.sh <folder> <slug>`) to easily package and deploy micro-apps directly to `/home/bfjydpuzth/carlossilveira.dev/lab/<slug>/` on Spaceship.
+
+---
+
 ## 2026-10-19 — Complete Visual Redesign to Apple UI Design System (`apple-ui-design`)
 - **Agent**: Antigravity Subagent (`81167431-e739-4fa8-8ae9-5aaf00d93022`)
 - **Design System Migration**:

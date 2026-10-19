@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="cs-lg-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="52%" stop-color="#5B5BF6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="cs-lg-sheen" x1="8" y1="4" x2="56" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.65"/>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cs-lg-ribbon" x1="14" y1="16" x2="50" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E0F2FE"/>
+    </linearGradient>
+    <filter id="cs-lg-glow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#003399" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <!-- Liquid Glass Squircle Base -->
+  <rect x="3" y="3" width="58" height="58" rx="18" fill="url(#cs-lg-bg)"/>
+  <!-- Top Specular Glass Reflection -->
+  <path d="M21 4.5H43C51.5604 4.5 58.5 11.4396 58.5 20V26C48 21 34 25 18 22C10 20.5 6 16 5.5 20C5.5 11.4396 12.4396 4.5 21 4.5Z" fill="url(#cs-lg-sheen)"/>
+  <!-- Inner Rim Specular Border -->
+  <rect x="3.75" y="3.75" width="56.5" height="56.5" rx="17.25" stroke="#FFFFFF" stroke-opacity="0.48" stroke-width="1.5"/>
+  <!-- Sculpted Interlocking CS Monogram -->
+  <g filter="url(#cs-lg-glow)">
+    <!-- The 'C' Fluid Arc -->
+    <path d="M33.5 19.5C24.3873 19.5 17 25.0964 17 32C17 38.9036 24.3873 44.5 33.5 44.5C36.8 44.5 39.8 43.7 42.2 42.3" stroke="url(#cs-lg-ribbon)" stroke-width="5.2" stroke-linecap="round"/>
+    <!-- The 'S' Liquid Wave -->
+    <path d="M45.5 22.5C42.5 19.8 36.8 19.2 33 21.5C29.5 23.6 30.2 28.4 35.5 30.5L40.5 32.5C46.2 34.8 47.2 40.5 42.5 43.2C38.5 45.5 32.2 44.8 29 42" stroke="#FFFFFF" stroke-width="5.2" stroke-linecap="round"/>
+    <!-- Prismatic Spark Dot -->
+    <circle cx="48.5" cy="20" r="3" fill="#7DD3FC"/>
+  </g>
+</svg>

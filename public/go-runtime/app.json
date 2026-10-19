@@ -1,0 +1,12 @@
+{
+  "name": "Go 1.23 Native Microservice",
+  "slug": "go-runtime",
+  "stack": "Go 1.23 (Linux amd64)",
+  "runtime": "GOOS=linux GOARCH=amd64 CGO_ENABLED=0",
+  "category": "Binario Nativo",
+  "status": "Activa",
+  "description": "Microservicio en Go compilado a binario estático de Linux sin dependencias externas para máxima velocidad.",
+  "local_path": "/Users/carlossilveira/Documents/Personal/carlossilveiradev/carlossilveira-playground-kit/public/go-runtime",
+  "entry_url": "./go-runtime/",
+  "updated_at": "2026-10-19"
+}

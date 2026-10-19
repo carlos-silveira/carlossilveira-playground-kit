@@ -1,0 +1,484 @@
+/* ==========================================================================
+   Carlos Silveira — Unified Liquid Glass Design System (iOS 26 / macOS Tahoe)
+   Shared across Blog (/), Tools (/tools/), and Private Labs (/lab/)
+   ========================================================================== */
+
+:root {
+  color-scheme: light dark;
+  accent-color: #0066ff;
+
+  --color-scheme: light;
+  @media (prefers-color-scheme: dark) {
+    --color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+    --color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+    --color-scheme: light;
+  }
+
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --container-wide: min(1380px, 94vw);
+
+  /* Light Mode Liquid Glass */
+  --canvas-bg: #f4f7fb;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  --lg-surface: rgba(255, 255, 255, 0.58);
+  --lg-surface-elevated: rgba(255, 255, 255, 0.76);
+  --lg-surface-interactive: rgba(255, 255, 255, 0.88);
+  --lg-border: rgba(255, 255, 255, 0.72);
+  --lg-border-outer: rgba(15, 23, 42, 0.07);
+  --lg-specular: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.92),
+                 inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4),
+                 inset 0 0 20px 0 rgba(255, 255, 255, 0.25);
+  --lg-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.1),
+               0 4px 16px -2px rgba(15, 23, 42, 0.05);
+  --lg-blur: blur(28px) saturate(200%) contrast(1.04);
+
+  --accent-primary: #0066ff;
+  --accent-secondary: #6366f1;
+  --accent-aqua: #06b6d4;
+  --accent-gradient: linear-gradient(135deg, #0066ff 0%, #5b5bf6 50%, #06b6d4 100%);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
+  --spring-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --scrollbar-track: light-dark(#e2e8f0, #0f172a);
+  --scrollbar-thumb: light-dark(#94a3b8, #334155);
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) {
+    --canvas-bg: #070b14;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --lg-surface: rgba(18, 25, 43, 0.52);
+    --lg-surface-elevated: rgba(26, 35, 58, 0.68);
+    --lg-surface-interactive: rgba(36, 48, 78, 0.82);
+    --lg-border: rgba(255, 255, 255, 0.16);
+    --lg-border-outer: rgba(255, 255, 255, 0.12);
+    --lg-specular: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.28),
+                   inset 0 -1px 1px 0 rgba(0, 0, 0, 0.45),
+                   inset 0 0 24px 0 rgba(99, 102, 241, 0.08);
+    --lg-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55),
+                 0 4px 16px -2px rgba(0, 0, 0, 0.35);
+  }
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) {
+  --canvas-bg: #070b14;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --lg-surface: rgba(18, 25, 43, 0.52);
+  --lg-surface-elevated: rgba(26, 35, 58, 0.68);
+  --lg-surface-interactive: rgba(36, 48, 78, 0.82);
+  --lg-border: rgba(255, 255, 255, 0.16);
+  --lg-border-outer: rgba(255, 255, 255, 0.12);
+  --lg-specular: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.28),
+                 inset 0 -1px 1px 0 rgba(0, 0, 0, 0.45),
+                 inset 0 0 24px 0 rgba(99, 102, 241, 0.08);
+  --lg-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55),
+               0 4px 16px -2px rgba(0, 0, 0, 0.35);
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--canvas-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 1. Living Ambient Mesh Backdrop (.lg-ambient-canvas) */
+.lg-ambient-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(95px);
+  opacity: 0.48;
+  will-change: transform;
+  animation: lgOrbFloat 22s ease-in-out infinite alternate;
+}
+
+.lg-orb-sapphire {
+  width: 52vw;
+  height: 52vw;
+  max-width: 720px;
+  max-height: 720px;
+  top: -14%;
+  left: -8%;
+  background: radial-gradient(circle, #0071e3 0%, rgba(0, 102, 255, 0) 70%);
+}
+
+.lg-orb-indigo {
+  width: 48vw;
+  height: 48vw;
+  max-width: 680px;
+  max-height: 680px;
+  top: 12%;
+  right: -12%;
+  background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+  animation-delay: -6s;
+}
+
+.lg-orb-aqua {
+  width: 45vw;
+  height: 45vw;
+  max-width: 640px;
+  max-height: 640px;
+  bottom: -15%;
+  left: 18%;
+  background: radial-gradient(circle, #06b6d4 0%, rgba(6, 182, 212, 0) 70%);
+  animation-delay: -11s;
+}
+
+.lg-orb-rose {
+  width: 38vw;
+  height: 38vw;
+  max-width: 520px;
+  max-height: 520px;
+  bottom: 8%;
+  right: 12%;
+  background: radial-gradient(circle, #ec4899 0%, rgba(236, 72, 153, 0) 70%);
+  opacity: 0.28;
+  animation-delay: -15s;
+}
+
+@keyframes lgOrbFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(35px, -28px, 0) scale(1.07);
+  }
+  100% {
+    transform: translate3d(-25px, 24px, 0) scale(0.95);
+  }
+}
+
+/* 2. Wide Horizontal Layout Container */
+.lg-container {
+  width: var(--container-wide);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* 3. Refractive Liquid Glass Navigation Header */
+.lg-navbar {
+  position: sticky;
+  top: 16px;
+  z-index: 40;
+  width: var(--container-wide);
+  margin: 16px auto 0;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--lg-surface-elevated);
+  backdrop-filter: var(--lg-blur);
+  -webkit-backdrop-filter: var(--lg-blur);
+  border: 1px solid var(--lg-border);
+  box-shadow: var(--lg-specular), var(--lg-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lg-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.lg-brand-link svg,
+.lg-brand-link img {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+
+.lg-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lg-nav-item {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  transition: all 0.28s var(--spring-easing);
+}
+
+.lg-nav-item:hover,
+.lg-nav-item.active {
+  color: var(--text-primary);
+  background: var(--lg-surface-interactive);
+  box-shadow: var(--lg-specular);
+}
+
+/* 4. Specular Liquid Glass Cards (.lg-card) */
+.lg-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--lg-surface);
+  backdrop-filter: var(--lg-blur);
+  -webkit-backdrop-filter: var(--lg-blur);
+  border: 1px solid var(--lg-border);
+  outline: 1px solid var(--lg-border-outer);
+  box-shadow: var(--lg-specular), var(--lg-shadow);
+  padding: 28px;
+  transition: transform 0.35s var(--spring-easing), box-shadow 0.35s var(--spring-easing), background 0.35s var(--spring-easing);
+}
+
+.lg-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    480px circle at var(--mouse-x, 50%) var(--mouse-y, 0%),
+    rgba(255, 255, 255, 0.28),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s var(--spring-easing);
+}
+
+.lg-card:hover {
+  transform: translateY(-3px);
+  background: var(--lg-surface-elevated);
+}
+
+.lg-card:hover::before {
+  opacity: 1;
+}
+
+/* 5. Typography & Badges */
+h1, h2, h3, h4, .lg-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.lg-hero-title {
+  font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.lg-gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lg-section-title {
+  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.lg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--lg-surface-elevated);
+  border: 1px solid var(--lg-border);
+  box-shadow: var(--lg-specular);
+  color: var(--accent-primary);
+}
+
+.lg-badge-success {
+  color: var(--success);
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.lg-badge-warning {
+  color: var(--warning);
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* 6. Liquid Glass Buttons & Inputs */
+.lg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--lg-border);
+  transition: all 0.28s var(--spring-easing);
+}
+
+.lg-btn-primary {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.55),
+              0 12px 28px -6px rgba(0, 102, 255, 0.45);
+}
+
+.lg-btn-primary:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.7),
+              0 16px 34px -6px rgba(0, 102, 255, 0.6);
+}
+
+.lg-btn-secondary {
+  background: var(--lg-surface-elevated);
+  color: var(--text-primary);
+  box-shadow: var(--lg-specular);
+}
+
+.lg-btn-secondary:hover {
+  transform: translateY(-2px);
+  background: var(--lg-surface-interactive);
+}
+
+.lg-input,
+.lg-select {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--lg-surface-elevated);
+  backdrop-filter: var(--lg-blur);
+  -webkit-backdrop-filter: var(--lg-blur);
+  border: 1px solid var(--lg-border);
+  box-shadow: var(--lg-specular);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  transition: all 0.25s var(--spring-easing);
+}
+
+.lg-input:focus,
+.lg-select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: var(--lg-specular), 0 0 0 3px rgba(0, 102, 255, 0.18);
+}
+
+/* 7. Wide Horizontal Grids */
+.lg-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 24px;
+}
+
+.lg-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .lg-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 8. Theme Toggle State Branching */
+.theme-opt-light { display: none; }
+.theme-opt-dark { display: inline-flex; align-items: center; gap: 6px; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-opt-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-opt-dark {
+    display: none;
+  }
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-opt-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-opt-dark {
+  display: none;
+}
+
+@container style(--color-scheme: dark) {
+  .lg-hero-title {
+    letter-spacing: -0.038em;
+  }
+}

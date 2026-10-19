@@ -1,0 +1,12 @@
+{
+  "name": "Python 3.12 WSGI Microservice",
+  "slug": "python-wsgi",
+  "stack": "Python 3.12 / WSGI",
+  "runtime": "/opt/alt/python312/bin/python3",
+  "category": "APIs & Automatización",
+  "status": "Activa",
+  "description": "Servicio Python 3.12 compatible con Phusion Passenger WSGI y ejecución CGI directa para prototipos en Django o Flask.",
+  "local_path": "/Users/carlossilveira/Documents/Personal/carlossilveiradev/carlossilveira-playground-kit/public/python-wsgi",
+  "entry_url": "./python-wsgi/",
+  "updated_at": "2026-10-19"
+}

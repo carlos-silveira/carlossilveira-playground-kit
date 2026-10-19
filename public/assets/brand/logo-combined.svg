@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 368 56" width="368" height="56" fill="none">
+  <defs>
+    <linearGradient id="csc-lg-bg" x1="0" y1="0" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="52%" stop-color="#5B5BF6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="csc-lg-sheen" x1="6" y1="3" x2="46" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.65"/>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .c-first { font: 800 26px/1 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.04em; fill: currentColor; }
+    .c-last { font: 700 26px/1 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -0.03em; fill: url(#csc-lg-bg); }
+    .c-dev { font: 700 12px/1 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; fill: #0066FF; }
+  </style>
+  <!-- Icon Mark -->
+  <g transform="translate(2, 2)">
+    <rect x="2" y="2" width="48" height="48" rx="15" fill="url(#csc-lg-bg)"/>
+    <path d="M17 3.5H35C42.1797 3.5 48 9.3203 48 16.5V21C39 17 28 20 15 18C8.5 16.8 5 13 4.5 16.5C4.5 9.3203 10.3203 3.5 17 3.5Z" fill="url(#csc-lg-sheen)"/>
+    <rect x="2.6" y="2.6" width="46.8" height="46.8" rx="14.4" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="1.2"/>
+    <path d="M27.5 15.8C20.2 15.8 14.2 20.3 14.2 26C14.2 31.7 20.2 36.2 27.5 36.2C30.2 36.2 32.6 35.5 34.5 34.4" stroke="#FFFFFF" stroke-width="4.2" stroke-linecap="round"/>
+    <path d="M37.2 18.2C34.8 16 30.2 15.5 27 17.4C24.2 19.1 24.8 23 29 24.7L33 26.3C37.6 28.2 38.4 32.8 34.6 35C31.4 36.8 26.4 36.3 23.8 34" stroke="#FFFFFF" stroke-width="4.2" stroke-linecap="round"/>
+    <circle cx="39.5" cy="16.2" r="2.4" fill="#7DD3FC"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="64" y="37" class="c-first">Carlos <tspan class="c-last">Silveira</tspan></text>
+  <rect x="268" y="17" width="42" height="22" rx="11" fill="url(#csc-lg-bg)" fill-opacity="0.14" stroke="url(#csc-lg-bg)" stroke-opacity="0.4" stroke-width="1.2"/>
+  <text x="276" y="32" class="c-dev">.dev</text>
+</svg>

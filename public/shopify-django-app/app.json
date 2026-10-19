@@ -1,0 +1,12 @@
+{
+  "name": "Shopify Headless Storefront & Webhook Studio",
+  "slug": "shopify-django-app",
+  "stack": "Django 5.1 / Python 3.12",
+  "runtime": "/opt/alt/python312/bin/python3",
+  "category": "E-Commerce & Shopify App",
+  "status": "Activa",
+  "description": "Tienda headless y verificador de webhooks HMAC-SHA256 de Shopify (orders/create, products/update) con catálogo sincronizado y arquitectura Django.",
+  "local_path": "/Users/carlossilveira/Documents/Personal/lab-shopify-django-app",
+  "entry_url": "./shopify-django-app/",
+  "updated_at": "2026-10-19"
+}

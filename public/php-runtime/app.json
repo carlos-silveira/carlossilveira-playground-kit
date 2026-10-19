@@ -1,0 +1,12 @@
+{
+  "name": "API & Micro-App Sandbox (PHP 8.3)",
+  "slug": "php-runtime",
+  "stack": "PHP 8.3 / LiteSpeed",
+  "runtime": "/opt/alt/php83/usr/bin/php",
+  "category": "Backend & Webhooks",
+  "status": "Activa",
+  "description": "Entorno ligero en PHP 8.3 para probar endpoints JSON, integraciones REST y webhooks rápidos dentro de /lab/.",
+  "local_path": "/Users/carlossilveira/Documents/Personal/carlossilveiradev/carlossilveira-playground-kit/public/php-runtime",
+  "entry_url": "./php-runtime/",
+  "updated_at": "2026-10-19"
+}

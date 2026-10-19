@@ -1,0 +1,12 @@
+{
+  "name": "Ruby 3.3 Rack Micro-App",
+  "slug": "ruby-rack",
+  "stack": "Ruby 3.3 / Rack",
+  "runtime": "/opt/alt/ruby33/bin/ruby",
+  "category": "Web Apps & Scripts",
+  "status": "Activa",
+  "description": "Aplicación Ruby 3.3 sobre Rack y CGI para prototipos rápidos, automatizaciones y servicios ligeros.",
+  "local_path": "/Users/carlossilveira/Documents/Personal/carlossilveiradev/carlossilveira-playground-kit/public/ruby-rack",
+  "entry_url": "./ruby-rack/",
+  "updated_at": "2026-10-19"
+}
