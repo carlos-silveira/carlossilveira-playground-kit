@@ -9,15 +9,12 @@
       document.querySelector('meta[name="color-scheme"]').content = localStorage.getItem("color-scheme") ?? "light dark";
     } catch (_) {}
   </script>
-  <title>Multi-Language Playground Hub (/lab/) — Carlos Silveira</title>
-  <meta name="description" content="Polyglot engineering playground on carlossilveira.dev/lab/ running PHP 8.3, Python 3.12, Ruby 3.3, Go, Rust, Next.js, and Java GraalVM.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+  <title>Engineering Lab — Carlos Silveira</title>
+  <meta name="description" content="Multi-language software engineering playground by Carlos Silveira running PHP, Python, Ruby, Go, Rust, Next.js, and Java.">
   <style>
     :root {
       color-scheme: light dark;
-      accent-color: #00b4ff;
+      accent-color: #0071e3;
 
       --color-scheme: light;
       @media (prefers-color-scheme: dark) {
@@ -32,23 +29,38 @@
         --color-scheme: light;
       }
 
-      --bg-canvas: light-dark(#f8f6f6, #02040a);
-      --bg-surface: light-dark(#ffffff, #0a0f1c);
-      --bg-card: light-dark(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.025));
-      --bg-card-elevated: light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.04));
-      --bg-code: light-dark(#0f172a, #050914);
-      --border-subtle: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.08));
-      --border-strong: light-dark(rgba(0, 0, 0, 0.16), rgba(255, 255, 255, 0.16));
-      --text-main: light-dark(#0a0f1c, #f8fafc);
-      --text-muted: light-dark(#475569, #94a3b8);
-      --text-dim: light-dark(#64748b, #64748b);
-      --primary: #00b4ff;
-      --secondary: #2b7cee;
-      --emerald: #10b981;
-      --amber: #f59e0b;
+      /* Apple UI Design System Typography */
+      --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', sans-serif;
+      --font-mono: 'SF Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+      --text-hero: 600 48px/1.1 var(--font-sans);
+      --text-title: 600 32px/1.2 var(--font-sans);
+      --text-body: 400 17px/1.5 var(--font-sans);
+      --text-caption: 400 13px/1.4 var(--font-sans);
 
-      --scrollbar-track: light-dark(#ece9e9, #0a0f1c);
-      --scrollbar-thumb: light-dark(#94a3b8, #334155);
+      /* Apple UI Design System Color Philosophy */
+      --bg-primary: light-dark(#ffffff, #000000);
+      --bg-secondary: light-dark(#f5f5f7, #1d1d1f);
+      --text-primary: light-dark(#1d1d1f, #f5f5f7);
+      --text-secondary: #86868b;
+      --accent: #0071e3;
+      --accent-link: light-dark(#0071e3, #2997ff);
+
+      --card-bg: light-dark(rgba(255, 255, 255, 0.8), rgba(29, 29, 31, 0.8));
+      --card-border: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.08));
+      --card-shadow: light-dark(0 4px 24px rgba(0, 0, 0, 0.06), 0 4px 24px rgba(0, 0, 0, 0.4));
+      --nav-bg: light-dark(rgba(255, 255, 255, 0.78), rgba(0, 0, 0, 0.78));
+      --divider: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
+
+      /* Apple UI Spacing System */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 48px;
+      --space-2xl: 96px;
+
+      --scrollbar-track: light-dark(#f5f5f7, #1d1d1f);
+      --scrollbar-thumb: light-dark(#c7c7cc, #48484a);
       scrollbar-width: thin;
       scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
     }
@@ -66,6 +78,17 @@
       }
     }
 
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -73,184 +96,103 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background-color: var(--bg-canvas);
-      color: var(--text-main);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-weight: 300;
-      line-height: 1.65;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    ::selection {
-      background: rgba(0, 180, 255, 0.28);
-      color: var(--text-main);
-    }
-
-    /* Ambient Glows */
-    .glow-primary {
-      position: fixed;
-      top: -20%;
-      right: -10%;
-      width: 55vw;
-      height: 55vw;
-      background: radial-gradient(circle, rgba(0, 180, 255, 0.09) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .glow-secondary {
-      position: fixed;
-      bottom: -20%;
-      left: -10%;
-      width: 50vw;
-      height: 50vw;
-      background: radial-gradient(circle, rgba(43, 124, 238, 0.08) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      font: var(--text-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 0 1.5rem;
-      position: relative;
-      z-index: 1;
+      padding: 0 var(--space-lg);
     }
 
-    /* Top Navigation */
+    /* Navigation Bar */
     header.site-header {
-      border-bottom: 1px solid var(--border-subtle);
-      backdrop-filter: blur(16px);
       position: sticky;
       top: 0;
       z-index: 30;
-      background: light-dark(rgba(248, 246, 246, 0.85), rgba(2, 4, 10, 0.85));
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--divider);
     }
 
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 4.5rem;
-      gap: 1rem;
+      min-height: 52px;
+      gap: var(--space-md);
       flex-wrap: wrap;
+      padding: var(--space-xs) 0;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
       text-decoration: none;
-      color: var(--text-main);
     }
 
-    .pulse-dot {
-      position: relative;
-      width: 10px;
-      height: 10px;
-      display: inline-flex;
-    }
-
-    .pulse-dot::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 9999px;
-      background: var(--primary);
-      opacity: 0.75;
-      animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-
-    .pulse-dot::after {
-      content: "";
-      position: relative;
-      width: 10px;
-      height: 10px;
-      border-radius: 9999px;
-      background: var(--primary);
-    }
-
-    @keyframes ping {
-      75%, 100% {
-        transform: scale(2.4);
-        opacity: 0;
-      }
-    }
-
-    .brand-title {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      font-size: 1.05rem;
-    }
-
-    .brand-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--primary);
-      padding: 0.2rem 0.55rem;
-      border-radius: 9999px;
-      background: rgba(0, 180, 255, 0.1);
-      border: 1px solid rgba(0, 180, 255, 0.25);
+    .brand span {
+      color: var(--text-secondary);
+      font-weight: 400;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
     }
 
     .nav-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
+      font: var(--text-caption);
+      font-weight: 500;
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: color 0.15s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--primary);
+      color: var(--text-primary);
     }
 
-    /* Theme Toggle Button with CSS-driven state labels */
+    /* Theme Toggle */
     .theme-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--bg-card-elevated);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      padding: 0.45rem 0.85rem;
-      border-radius: 0.75rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
+      justify-content: center;
+      gap: var(--space-sm);
+      background: var(--bg-primary);
+      border: 1px solid var(--divider);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      min-height: 44px;
+      border-radius: 980px;
+      font: var(--text-caption);
+      font-weight: 500;
       cursor: pointer;
-      transition: border-color 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .theme-toggle:hover {
-      border-color: var(--primary);
+      transform: scale(1.02);
     }
 
-    /* Critical branching for theme toggle options (with fallback + @container style query) */
     .theme-opt-light { display: none; }
-    .theme-opt-dark { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .theme-opt-dark { display: inline-flex; align-items: center; gap: 6px; }
 
     @media (prefers-color-scheme: dark) {
       :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-opt-light {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 6px;
       }
       :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-opt-dark {
         display: none;
@@ -260,7 +202,7 @@
     :root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-opt-light {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 6px;
     }
     :root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-opt-dark {
       display: none;
@@ -268,387 +210,350 @@
 
     @container style(--color-scheme: dark) {
       .hero-title {
-        font-weight: 900;
+        letter-spacing: -0.025em;
       }
     }
 
-    /* Hero */
+    /* Hero Section */
     .hero {
-      padding: 4.5rem 0 3rem;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: var(--space-2xl) 0 var(--space-xl);
+      text-align: center;
+      animation: fadeUp 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) both;
     }
 
-    .micro-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.28em;
-      color: var(--primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+    .eyebrow {
+      font: var(--text-caption);
+      font-weight: 600;
+      color: var(--accent-link);
+      margin-bottom: var(--space-sm);
+      display: block;
     }
 
     .hero-title {
-      font-size: clamp(2.6rem, 6vw, 4.5rem);
-      font-weight: 900;
-      letter-spacing: -0.045em;
-      line-height: 0.96;
-      margin: 0 0 1.25rem;
+      font: var(--text-hero);
+      letter-spacing: -0.025em;
+      margin: 0 auto var(--space-md);
+      max-width: 680px;
     }
 
     .hero-subtitle {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-      max-width: 760px;
-      margin: 0 0 2rem;
-      font-weight: 300;
+      font: var(--text-body);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto var(--space-xl);
     }
 
     .hero-stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: var(--space-md);
+      text-align: left;
     }
 
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 1rem;
-      padding: 1.15rem 1.25rem;
+    /* Apple UI Cards */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      padding: var(--space-lg);
+      transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
 
-    .stat-card .stat-kicker {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--text-dim);
+    .stat-caption {
+      font: var(--text-caption);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
     }
 
-    .stat-card .stat-value {
-      font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      margin-top: 0.25rem;
-      color: var(--text-main);
+    .stat-value {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
     }
 
-    /* Section Layout */
-    section.section-block {
-      padding: 3.5rem 0;
-      border-bottom: 1px solid var(--border-subtle);
+    /* Sections */
+    .section-block {
+      padding: var(--space-xl) 0;
+      animation: fadeUp 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) both;
     }
 
     .section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
+      margin-bottom: var(--space-lg);
+      max-width: 680px;
     }
 
     .section-title {
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-      font-weight: 900;
-      letter-spacing: -0.035em;
-      margin: 0.25rem 0 0;
+      font: var(--text-title);
+      letter-spacing: -0.02em;
+      margin: var(--space-xs) 0 var(--space-sm);
     }
 
-    /* Live Demos Grid */
+    .section-desc {
+      font: var(--text-body);
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* Demos Grid */
     .demos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
     }
 
-    .lab-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 1.5rem;
-      padding: 1.75rem;
+    .demo-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
-    .lab-card:hover {
-      border-color: rgba(0, 180, 255, 0.4);
+    .demo-card:hover {
       transform: translateY(-2px);
     }
 
-    .card-top {
+    .demo-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
     }
 
-    .status-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      padding: 0.25rem 0.65rem;
-      border-radius: 9999px;
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--emerald);
-      border: 1px solid rgba(16, 185, 129, 0.28);
+    .badge-pill {
+      font: var(--text-caption);
+      font-weight: 500;
+      color: var(--accent-link);
+      background: rgba(0, 113, 227, 0.1);
+      padding: 4px 12px;
+      border-radius: 980px;
     }
 
-    .runtime-path {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--primary);
-      background: rgba(0, 180, 255, 0.08);
-      border: 1px solid rgba(0, 180, 255, 0.18);
-      padding: 0.35rem 0.65rem;
-      border-radius: 0.5rem;
-      display: inline-block;
-      margin-bottom: 0.85rem;
-      word-break: break-all;
+    .demo-card h3 {
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin: 0 0 var(--space-sm);
     }
 
-    .lab-card h3 {
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.025em;
-      margin: 0 0 0.5rem;
+    .demo-card p {
+      font: var(--text-caption);
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-lg);
     }
 
-    .lab-card p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin: 0 0 1.5rem;
-    }
-
+    /* Buttons */
     .card-actions {
       display: flex;
-      gap: 0.75rem;
+      gap: var(--space-sm);
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .btn-primary {
-      background: var(--primary);
-      color: #02040a;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      padding: 0.7rem 1.1rem;
-      border-radius: 0.75rem;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 980px;
+      font: var(--text-caption);
+      font-size: 14px;
+      font-weight: 500;
+      min-height: 44px;
       border: none;
       text-decoration: none;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      box-shadow: 0 0 24px rgba(0, 180, 255, 0.28);
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-main);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      padding: 0.7rem 1.1rem;
-      border-radius: 0.75rem;
-      border: 1px solid var(--border-strong);
+    .btn-primary:hover {
+      transform: scale(1.02);
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 12px 20px;
+      border-radius: 980px;
+      font: var(--text-caption);
+      font-size: 14px;
+      font-weight: 500;
+      min-height: 44px;
+      border: 1px solid var(--divider);
       text-decoration: none;
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .btn-ghost:hover {
-      border-color: var(--primary);
-      color: var(--primary);
+    .btn-secondary:hover {
+      transform: scale(1.02);
+      border-color: var(--accent);
+      color: var(--accent-link);
     }
 
-    /* Live Probe Console */
-    .probe-console {
-      margin-top: 1.5rem;
-      background: var(--bg-code);
-      color: #e2e8f0;
-      border: 1px solid var(--border-strong);
-      border-radius: 1.25rem;
-      padding: 1.25rem 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
+    /* Inspector Output Card */
+    .inspector-panel {
+      margin-top: var(--space-lg);
     }
 
-    .probe-header {
+    .inspector-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 0.75rem;
-      margin-bottom: 0.85rem;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #94a3b8;
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-md);
+      border-bottom: 1px solid var(--divider);
+      font: var(--text-caption);
+      color: var(--text-secondary);
     }
 
-    .probe-output {
+    .inspector-output {
       margin: 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-primary);
       white-space: pre-wrap;
       word-break: break-word;
       max-height: 280px;
       overflow-y: auto;
-      color: #38bdf8;
     }
 
-    /* Interactive CLI Generator */
-    .generator-box {
+    /* Generator Layout */
+    .generator-grid {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 1.5rem;
-      padding: 2rem;
+      grid-template-columns: 1fr 1.15fr;
+      gap: var(--space-lg);
+      align-items: stretch;
     }
 
-    @media (max-width: 860px) {
-      .generator-box {
+    @media (max-width: 780px) {
+      .generator-grid {
         grid-template-columns: 1fr;
       }
     }
 
     .field-label {
       display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      font: var(--text-caption);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
     }
 
     .field-input,
     .field-select {
       width: 100%;
-      background: var(--bg-surface);
-      color: var(--text-main);
-      border: 1px solid var(--border-strong);
-      border-radius: 0.75rem;
-      padding: 0.8rem 1rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.88rem;
-      margin-bottom: 1.25rem;
+      min-height: 44px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border: 1px solid var(--divider);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font: var(--text-body);
+      font-size: 15px;
+      margin-bottom: var(--space-md);
+      transition: border-color 0.2s ease;
     }
 
-    .terminal-card {
-      background: var(--bg-code);
-      color: #f8fafc;
-      border-radius: 1rem;
-      padding: 1.25rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid rgba(0, 180, 255, 0.25);
+    .field-input:focus,
+    .field-select:focus {
+      outline: none;
+      border-color: var(--accent);
     }
 
-    .cmd-line {
-      color: #00b4ff;
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin: 0.5rem 0 1rem;
+    .command-preview-box {
+      background: var(--bg-primary);
+      border: 1px solid var(--divider);
+      border-radius: 14px;
+      padding: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent-link);
+      margin: var(--space-sm) 0 var(--space-md);
       word-break: break-all;
     }
 
-    /* Runtime Matrix Table */
-    .table-wrap {
+    /* Runtime Table */
+    .table-card {
+      padding: 0;
       overflow-x: auto;
-      border: 1px solid var(--border-subtle);
-      border-radius: 1.25rem;
-      background: var(--bg-card);
     }
 
-    table.matrix-table {
+    table.runtime-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.88rem;
+      font: var(--text-caption);
+      font-size: 14px;
     }
 
-    .matrix-table th {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border-subtle);
+    .runtime-table th {
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--divider);
     }
 
-    .matrix-table td {
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border-subtle);
+    .runtime-table td {
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--divider);
+      color: var(--text-primary);
       vertical-align: top;
     }
 
-    .matrix-table tr:last-child td {
+    .runtime-table tr:last-child td {
       border-bottom: none;
     }
 
-    code.inline-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      background: var(--bg-card-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 0.15rem 0.45rem;
-      border-radius: 0.375rem;
+    code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--bg-secondary);
+      padding: 2px 6px;
+      border-radius: 6px;
     }
 
     footer.site-footer {
-      padding: 3rem 0 4rem;
-      font-size: 0.85rem;
-      color: var(--text-dim);
+      padding: var(--space-xl) 0 var(--space-2xl);
+      border-top: 1px solid var(--divider);
+      margin-top: var(--space-xl);
+      font: var(--text-caption);
+      color: var(--text-secondary);
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: var(--space-md);
+    }
+
+    footer.site-footer a {
+      color: var(--accent-link);
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="glow-primary" aria-hidden="true"></div>
-  <div class="glow-secondary" aria-hidden="true"></div>
-
   <header class="site-header">
     <div class="container nav-inner">
-      <a href="/lab/" class="brand">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        <span class="brand-title">CARLOSSILVEIRA.DEV</span>
-        <span class="brand-tag">/LAB ENGINE</span>
-      </a>
+      <a href="/lab/" class="brand">Carlos Silveira <span>/ Lab</span></a>
       <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="/">Newsletter</a>
-        <a href="/tools/">SEO Tools</a>
-        <a href="/lab/" class="active">Playground Hub</a>
-        <a href="https://github.com/carlos-silveira/carlossilveira-playground-kit" target="_blank" rel="noopener">GitHub Kit</a>
+        <a href="/">Articles</a>
+        <a href="/tools/">Tools</a>
+        <a href="/lab/" class="active">Lab</a>
+        <a href="https://github.com/carlos-silveira/carlossilveira-playground-kit" target="_blank" rel="noopener">GitHub</a>
         <button type="button" class="theme-toggle" id="theme-toggle-btn">
-          <span class="theme-opt-dark">&#9790; Switch to Dark</span>
-          <span class="theme-opt-light">&#9728; Switch to Light</span>
+          <span class="theme-opt-dark">Dark Appearance</span>
+          <span class="theme-opt-light">Light Appearance</span>
         </button>
       </nav>
     </div>
@@ -656,28 +561,24 @@
 
   <main class="container">
     <section class="hero">
-      <div class="micro-label">POLYGLOT CLOUDLINUX EXECUTION MATRIX // SERVER58</div>
+      <span class="eyebrow">Polyglot Engineering Sandbox</span>
       <h1 class="hero-title">Multi-Language Playground.</h1>
       <p class="hero-subtitle">
-        A unified experimental sandbox running <strong>PHP 8.3</strong>, <strong>Python 3.12</strong>, <strong>Ruby 3.3</strong>, <strong>Node.js 22</strong>, <strong>Go</strong>, <strong>Rust</strong>, and <strong>Java 21 GraalVM</strong> side-by-side under <code>carlossilveira.dev/lab/*</code>.
+        A unified space for building and testing web applications across PHP 8.3, Python 3.12, Ruby 3.3, Go, Rust, Next.js, and Java 21 under <code>carlossilveira.dev/lab/</code>.
       </p>
 
       <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-kicker">SUPPORTED STACKS</div>
-          <div class="stat-value">7 Runtimes</div>
+        <div class="card">
+          <div class="stat-caption">Starter Templates</div>
+          <div class="stat-value">7 Stacks</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-kicker">LIVE SERVER ENDPOINTS</div>
-          <div class="stat-value">3 Active</div>
+        <div class="card">
+          <div class="stat-caption">Live Runtimes</div>
+          <div class="stat-value">4 Active</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-kicker">SCAFFOLDING CLI</div>
+        <div class="card">
+          <div class="stat-caption">Project Generator</div>
           <div class="stat-value">new-lab.sh</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-kicker">HOST NODE</div>
-          <div class="stat-value">server58</div>
         </div>
       </div>
     </section>
@@ -685,198 +586,203 @@
     <!-- Live Multi-Language Demos -->
     <section class="section-block" id="live-demos">
       <div class="section-header">
-        <div>
-          <div class="micro-label">LIVE TELEMETRY ENDPOINTS // ZERO MOCKS</div>
-          <h2 class="section-title">Active Runtime Micro-Apps.</h2>
-        </div>
+        <span class="eyebrow">Interactive Runtimes</span>
+        <h2 class="section-title">Live Server Endpoints.</h2>
+        <p class="section-desc">
+          Explore the active language runtimes below or test their JSON responses directly in the browser.
+        </p>
       </div>
 
       <div class="demos-grid">
-        <!-- PHP 8.3 Demo -->
-        <article class="lab-card">
+        <article class="card demo-card">
           <div>
-            <div class="card-top">
-              <span class="status-pill">LIVE // PHP 8.3 SAPI</span>
-              <code class="inline-code">/lab/php-runtime/</code>
+            <div class="demo-meta">
+              <span class="badge-pill">PHP 8.3</span>
+              <code>/lab/php-runtime/</code>
             </div>
-            <div class="runtime-path">/opt/alt/php83/usr/bin/php</div>
-            <h3>PHP 8.3 Runtime Inspector &amp; Benchmark</h3>
+            <h3>PHP Runtime &amp; Benchmark</h3>
             <p>
-              Inspects active LiteSpeed PHP 8.3 extensions, OPcache/JIT memory status, and executes a real-time SHA-256 + array allocation micro-benchmark on <code>server58</code>.
+              Inspects active extensions, OPcache configuration, and runs a real-time SHA-256 and array sorting benchmark.
             </p>
           </div>
           <div class="card-actions">
-            <a class="btn-primary" href="./php-runtime/">Open PHP App &rarr;</a>
-            <button type="button" class="btn-ghost" data-probe-url="./php-runtime/?format=json" data-probe-label="PHP 8.3 Runtime">
-              Probe JSON API
+            <a class="btn-primary" href="./php-runtime/">Open App</a>
+            <button type="button" class="btn-secondary" data-probe-url="./php-runtime/?format=json" data-probe-label="PHP 8.3">
+              Test JSON
             </button>
           </div>
         </article>
 
-        <!-- Python 3.12 Demo -->
-        <article class="lab-card">
+        <article class="card demo-card">
           <div>
-            <div class="card-top">
-              <span class="status-pill">LIVE // PYTHON 3.12</span>
-              <code class="inline-code">/lab/python-wsgi/</code>
+            <div class="demo-meta">
+              <span class="badge-pill">Python 3.12</span>
+              <code>/lab/python-wsgi/</code>
             </div>
-            <div class="runtime-path">/opt/alt/python312/bin/python3</div>
-            <h3>Python 3.12 WSGI &amp; JSON Telemetry API</h3>
+            <h3>Python WSGI Service</h3>
             <p>
-              Executes PEP 3333 WSGI via CloudLinux Python 3.12 (`passenger_wsgi.py` + `index.cgi` bridge), reporting interpreter build metadata, sys.path, and live compute timings.
+              Runs a PEP 3333 WSGI application reporting interpreter details, platform metadata, and cryptographic hash performance.
             </p>
           </div>
           <div class="card-actions">
-            <a class="btn-primary" href="./python-wsgi/">Open Python App &rarr;</a>
-            <button type="button" class="btn-ghost" data-probe-url="./python-wsgi/?format=json" data-probe-label="Python 3.12 WSGI">
-              Probe JSON API
+            <a class="btn-primary" href="./python-wsgi/">Open App</a>
+            <button type="button" class="btn-secondary" data-probe-url="./python-wsgi/?format=json" data-probe-label="Python 3.12">
+              Test JSON
             </button>
           </div>
         </article>
 
-        <!-- Ruby 3.3 Demo -->
-        <article class="lab-card">
+        <article class="card demo-card">
           <div>
-            <div class="card-top">
-              <span class="status-pill">LIVE // RUBY 3.3</span>
-              <code class="inline-code">/lab/ruby-rack/</code>
+            <div class="demo-meta">
+              <span class="badge-pill">Ruby 3.3</span>
+              <code>/lab/ruby-rack/</code>
             </div>
-            <div class="runtime-path">/opt/alt/ruby33/bin/ruby</div>
-            <h3>Ruby 3.3 Rack &amp; YJIT/GC Inspector</h3>
+            <h3>Ruby Rack Inspector</h3>
             <p>
-              Runs CloudLinux Ruby 3.3 (`config.ru` + `index.cgi`), surfacing Ruby VM garbage collection statistics, loaded gems, and sub-millisecond string/hash benchmarks.
+              Executes Ruby 3.3 on the server, displaying garbage collection metrics, YJIT status, and benchmark timings.
             </p>
           </div>
           <div class="card-actions">
-            <a class="btn-primary" href="./ruby-rack/">Open Ruby App &rarr;</a>
-            <button type="button" class="btn-ghost" data-probe-url="./ruby-rack/?format=json" data-probe-label="Ruby 3.3 Rack">
-              Probe JSON API
+            <a class="btn-primary" href="./ruby-rack/">Open App</a>
+            <button type="button" class="btn-secondary" data-probe-url="./ruby-rack/?format=json" data-probe-label="Ruby 3.3">
+              Test JSON
+            </button>
+          </div>
+        </article>
+
+        <article class="card demo-card">
+          <div>
+            <div class="demo-meta">
+              <span class="badge-pill">Go 1.23</span>
+              <code>/lab/go-runtime/</code>
+            </div>
+            <h3>Go Native Binary</h3>
+            <p>
+              Compiled as a standalone Linux amd64 binary serving both HTML and JSON responses with sub-millisecond startup.
+            </p>
+          </div>
+          <div class="card-actions">
+            <a class="btn-primary" href="./go-runtime/">Open App</a>
+            <button type="button" class="btn-secondary" data-probe-url="./go-runtime/?format=json" data-probe-label="Go 1.23">
+              Test JSON
             </button>
           </div>
         </article>
       </div>
 
-      <div class="probe-console" aria-live="polite">
-        <div class="probe-header">
-          <span id="probe-status">LIVE RUNTIME TELEMETRY CONSOLE // CLICK "PROBE JSON API" ABOVE</span>
-          <span id="probe-latency">READY</span>
+      <div class="card inspector-panel" aria-live="polite">
+        <div class="inspector-header">
+          <span id="probe-status">JSON Response Preview</span>
+          <span id="probe-latency">Select “Test JSON” on any card above</span>
         </div>
-        <pre class="probe-output" id="probe-output">{
-  "hint": "Select 'Probe JSON API' on any runtime card above to execute a live HTTP request against PHP 8.3, Python 3.12, or Ruby 3.3 on carlossilveira.dev/lab/."
+        <pre class="inspector-output" id="probe-output">{
+  "message": "Click 'Test JSON' on any runtime card above to fetch a live response from the server."
 }</pre>
       </div>
     </section>
 
-    <!-- Interactive CLI Generator -->
+    <!-- Project Scaffolding Generator -->
     <section class="section-block" id="scaffolding-cli">
       <div class="section-header">
-        <div>
-          <div class="micro-label">ZERO-FRICTION SCAFFOLDING // SCRIPTS/NEW-LAB.SH</div>
-          <h2 class="section-title">Spin Up a New Experiment.</h2>
-        </div>
+        <span class="eyebrow">Quick Start</span>
+        <h2 class="section-title">Create a New Lab Project.</h2>
+        <p class="section-desc">
+          Use the scaffolding script to initialize a new repository with Git identity, starter code, and deployment workflow pre-configured.
+        </p>
       </div>
 
-      <div class="generator-box">
-        <div>
-          <label class="field-label" for="stack-select">1. Select Starter Stack</label>
+      <div class="generator-grid">
+        <div class="card">
+          <label class="field-label" for="stack-select">Starter Stack</label>
           <select id="stack-select" class="field-select">
-            <option value="go-cgi">go-cgi — Go 1.23 Hybrid HTTP/CGI Static Binary</option>
-            <option value="rust-cgi">rust-cgi — Rust 2021 Static Musl CGI Binary</option>
-            <option value="python-django">python-django — Python 3.12 WSGI / Django-Ready</option>
-            <option value="php-api">php-api — PHP 8.3 LiteSpeed API &amp; Micro-App</option>
-            <option value="nextjs-react">nextjs-react — Next.js 15 / React 19 Static Export</option>
-            <option value="ruby-rack">ruby-rack — Ruby 3.3 Rack / CGI Micro-App</option>
-            <option value="java-graalvm">java-graalvm — Java 21 GraalVM Native Binary</option>
+            <option value="go-cgi">Go 1.23 (go-cgi)</option>
+            <option value="rust-cgi">Rust 2021 (rust-cgi)</option>
+            <option value="python-django">Python 3.12 WSGI / Django (python-django)</option>
+            <option value="php-api">PHP 8.3 Web &amp; API (php-api)</option>
+            <option value="nextjs-react">Next.js &amp; React (nextjs-react)</option>
+            <option value="ruby-rack">Ruby 3.3 Rack (ruby-rack)</option>
+            <option value="java-graalvm">Java 21 GraalVM (java-graalvm)</option>
           </select>
 
-          <label class="field-label" for="slug-input">2. Experiment Slug (/lab/&lt;slug&gt;/)</label>
+          <label class="field-label" for="slug-input">Project Name</label>
           <input id="slug-input" class="field-input" type="text" value="url-shortener" placeholder="e.g. url-shortener" pattern="[a-z0-9-]+">
 
-          <button type="button" class="btn-primary" id="copy-cmd-btn">Copy CLI Command</button>
+          <button type="button" class="btn-primary" id="copy-cmd-btn">Copy Command</button>
         </div>
 
-        <div class="terminal-card">
-          <div>
-            <div style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#94a3b8;">
-              TERMINAL // CARLOSSILVEIRA-PLAYGROUND-KIT
-            </div>
-            <div class="cmd-line" id="cmd-preview">./scripts/new-lab.sh go-cgi url-shortener</div>
-            <div id="cmd-details" style="color:#cbd5e1; font-size:0.8rem; line-height:1.6;">
-              &bull; Target Repo: <code>/Users/carlossilveira/Documents/Personal/carlossilveiradev/lab-url-shortener</code><br>
-              &bull; Git Remote: <code>git@github-personal:carlos-silveira/lab-url-shortener.git</code><br>
-              &bull; Build Strategy: <code>GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o index.cgi</code><br>
-              &bull; Live URL: <code>https://carlossilveira.dev/lab/url-shortener/</code>
-            </div>
-          </div>
-          <div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.1); font-size:10px; color:#64748b; display:flex; justify-content:space-between;">
-            <span>GIT AUTHOR: Carlos Silveira &lt;carlos@personal.me&gt;</span>
-            <span>CI/CD: .github/workflows/deploy.yml</span>
+        <div class="card">
+          <div class="stat-caption">Command</div>
+          <div class="command-preview-box" id="cmd-preview">./scripts/new-lab.sh go-cgi url-shortener</div>
+          <div id="cmd-details" style="font: var(--text-caption); color: var(--text-secondary); line-height: 1.7;">
+            <div><strong>Local Directory:</strong> <code>lab-url-shortener</code></div>
+            <div><strong>GitHub Remote:</strong> <code>git@github-personal:carlos-silveira/lab-url-shortener.git</code></div>
+            <div><strong>Build Strategy:</strong> <code>GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build</code></div>
+            <div><strong>Destination URL:</strong> <code>https://carlossilveira.dev/lab/url-shortener/</code></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CloudLinux Runtime Matrix -->
+    <!-- Runtime Reference Table -->
     <section class="section-block" id="runtime-matrix">
       <div class="section-header">
-        <div>
-          <div class="micro-label">SPACESHIP CLOUDLINUX SPECIFICATIONS // SERVER58</div>
-          <h2 class="section-title">Multi-Runtime Reference Matrix.</h2>
-        </div>
+        <span class="eyebrow">Architecture</span>
+        <h2 class="section-title">Supported Runtimes.</h2>
       </div>
 
-      <div class="table-wrap">
-        <table class="matrix-table">
+      <div class="card table-card">
+        <table class="runtime-table">
           <thead>
             <tr>
-              <th>Starter Template</th>
-              <th>Language / Framework</th>
-              <th>CloudLinux Path / Toolchain</th>
-              <th>Execution Strategy on <code>server58</code></th>
+              <th>Template</th>
+              <th>Language</th>
+              <th>Server Runtime / Toolchain</th>
+              <th>Execution Model</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code class="inline-code">starters/php-api</code></td>
+              <td><code>starters/php-api</code></td>
               <td><strong>PHP 8.3 / 8.5</strong></td>
-              <td><code class="inline-code">/opt/alt/php83/usr/bin/php</code></td>
-              <td>Native LiteSpeed SAPI with <code>.htaccess</code> front-controller routing.</td>
+              <td><code>/opt/alt/php83/usr/bin/php</code></td>
+              <td>Native LiteSpeed SAPI with clean URL routing.</td>
             </tr>
             <tr>
-              <td><code class="inline-code">starters/python-django</code></td>
-              <td><strong>Python 3.12 (WSGI / Django)</strong></td>
-              <td><code class="inline-code">/opt/alt/python312/bin/python3</code></td>
-              <td>Phusion Passenger (<code>passenger_wsgi.py</code>) + instant <code>index.cgi</code> WSGI bridge.</td>
+              <td><code>starters/python-django</code></td>
+              <td><strong>Python 3.12</strong></td>
+              <td><code>/opt/alt/python312/bin/python3</code></td>
+              <td>Phusion Passenger WSGI and CGI bridge.</td>
             </tr>
             <tr>
-              <td><code class="inline-code">starters/nextjs-react</code></td>
-              <td><strong>Next.js 15 / React 19</strong></td>
-              <td><code class="inline-code">/opt/alt/alt-nodejs22/root/usr/bin/node</code></td>
-              <td>Built in GitHub Actions (<code>output: 'export'</code>) to bypass CageFS Wasm memory limits; Node 16 fallback for SSR.</td>
+              <td><code>starters/nextjs-react</code></td>
+              <td><strong>Next.js / React</strong></td>
+              <td><code>/opt/alt/alt-nodejs22/root/usr/bin/node</code></td>
+              <td>Static export built in GitHub Actions.</td>
             </tr>
             <tr>
-              <td><code class="inline-code">starters/go-cgi</code></td>
+              <td><code>starters/go-cgi</code></td>
               <td><strong>Go 1.23</strong></td>
-              <td><code class="inline-code">GOOS=linux GOARCH=amd64 CGO_ENABLED=0</code></td>
-              <td>Cross-compiled static Linux binary executed via <code>.htaccess</code> CGI (<code>net/http/cgi</code>).</td>
+              <td><code>GOOS=linux GOARCH=amd64 CGO_ENABLED=0</code></td>
+              <td>Standalone Linux binary served via HTTP/CGI.</td>
             </tr>
             <tr>
-              <td><code class="inline-code">starters/rust-cgi</code></td>
+              <td><code>starters/rust-cgi</code></td>
               <td><strong>Rust 2021</strong></td>
-              <td><code class="inline-code">x86_64-unknown-linux-musl</code></td>
-              <td>Static musl binary compiled in GitHub Actions and served via LiteSpeed CGI.</td>
+              <td><code>x86_64-unknown-linux-musl</code></td>
+              <td>Static musl binary compiled in GitHub Actions.</td>
             </tr>
             <tr>
-              <td><code class="inline-code">starters/ruby-rack</code></td>
-              <td><strong>Ruby 3.3 (Rack)</strong></td>
-              <td><code class="inline-code">/opt/alt/ruby33/bin/ruby</code></td>
-              <td>Phusion Passenger Rack (<code>config.ru</code>) + instant <code>index.cgi</code> script.</td>
+              <td><code>starters/ruby-rack</code></td>
+              <td><strong>Ruby 3.3</strong></td>
+              <td><code>/opt/alt/ruby33/bin/ruby</code></td>
+              <td>Phusion Passenger Rack and CGI bridge.</td>
             </tr>
             <tr>
-              <td><code class="inline-code">starters/java-graalvm</code></td>
-              <td><strong>Java 21 (GraalVM)</strong></td>
-              <td><code class="inline-code">native-image --static --libc=musl</code></td>
-              <td>AOT-compiled native Linux binary in GitHub Actions or external container via CNAME.</td>
+              <td><code>starters/java-graalvm</code></td>
+              <td><strong>Java 21</strong></td>
+              <td><code>native-image --static --libc=musl</code></td>
+              <td>GraalVM native binary compiled in GitHub Actions.</td>
             </tr>
           </tbody>
         </table>
@@ -885,20 +791,18 @@
   </main>
 
   <footer class="container site-footer">
+    <div>Carlos Silveira &mdash; Engineering Playground</div>
     <div>
-      <strong>Carlos Silveira</strong> &mdash; Multi-Stack Engineering Playground (<code>carlossilveira.dev/lab/</code>)
-    </div>
-    <div>
-      <a href="/" style="color:var(--primary); text-decoration:none; font-weight:700;">Home</a> &middot;
-      <a href="/tools/" style="color:var(--primary); text-decoration:none; font-weight:700;">Tools</a> &middot;
-      <a href="./php-runtime/" style="color:var(--primary); text-decoration:none; font-weight:700;">PHP 8.3</a> &middot;
-      <a href="./python-wsgi/" style="color:var(--primary); text-decoration:none; font-weight:700;">Python 3.12</a> &middot;
-      <a href="./ruby-rack/" style="color:var(--primary); text-decoration:none; font-weight:700;">Ruby 3.3</a>
+      <a href="/">Articles</a> &middot;
+      <a href="/tools/">Tools</a> &middot;
+      <a href="./php-runtime/">PHP</a> &middot;
+      <a href="./python-wsgi/">Python</a> &middot;
+      <a href="./ruby-rack/">Ruby</a> &middot;
+      <a href="./go-runtime/">Go</a>
     </div>
   </footer>
 
   <script>
-    // Compliant Two-State Dark/Light Mode Toggle (modern-web-guidance: dark-mode-toggle)
     (function () {
       const meta = document.querySelector('meta[name="color-scheme"]');
       const btn = document.getElementById('theme-toggle-btn');
@@ -941,7 +845,6 @@
       });
     })();
 
-    // Live Runtime JSON Probe
     (function () {
       const statusEl = document.getElementById('probe-status');
       const latencyEl = document.getElementById('probe-latency');
@@ -951,30 +854,29 @@
         button.addEventListener('click', async function () {
           const url = button.getAttribute('data-probe-url');
           const label = button.getAttribute('data-probe-label');
-          statusEl.textContent = 'PROBING ' + label.toUpperCase() + ' (' + url + ')...';
-          latencyEl.textContent = 'FETCHING...';
+          statusEl.textContent = label + ' — Loading...';
+          latencyEl.textContent = 'Requesting...';
           const t0 = performance.now();
           try {
             const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
             const elapsed = (performance.now() - t0).toFixed(1);
             const data = await res.json();
-            statusEl.textContent = label.toUpperCase() + ' // HTTP ' + res.status;
+            statusEl.textContent = label + ' Response (HTTP ' + res.status + ')';
             latencyEl.textContent = elapsed + ' ms';
             outputEl.textContent = JSON.stringify(data, null, 2);
           } catch (err) {
-            statusEl.textContent = label.toUpperCase() + ' // OFFLINE OR LOCAL PREVIEW';
-            latencyEl.textContent = 'N/A';
+            statusEl.textContent = label + ' — Local Preview';
+            latencyEl.textContent = '';
             outputEl.textContent = JSON.stringify({
-              note: 'Live CGI/SAPI execution occurs on https://carlossilveira.dev/lab/',
+              info: 'Live server execution is available at https://carlossilveira.dev/lab/',
               endpoint: url,
-              error: String(err)
+              detail: String(err)
             }, null, 2);
           }
         });
       });
     })();
 
-    // Interactive CLI Command Builder
     (function () {
       const stackSelect = document.getElementById('stack-select');
       const slugInput = document.getElementById('slug-input');
@@ -983,24 +885,24 @@
       const copyBtn = document.getElementById('copy-cmd-btn');
 
       const buildStrategies = {
-        'go-cgi': 'GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o index.cgi',
+        'go-cgi': 'GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build',
         'rust-cgi': 'cargo build --release --target x86_64-unknown-linux-musl',
-        'python-django': 'CloudLinux Python 3.12 (/opt/alt/python312/bin/python3) WSGI + CGI',
-        'php-api': 'Native LiteSpeed PHP 8.3 SAPI (/opt/alt/php83/usr/bin/php)',
-        'nextjs-react': 'GitHub Actions npm run build (output: "export") -> rsync out/',
-        'ruby-rack': 'CloudLinux Ruby 3.3 (/opt/alt/ruby33/bin/ruby) Rack + CGI',
-        'java-graalvm': 'GraalVM JDK 21 native-image --no-fallback --static --libc=musl'
+        'python-django': 'Python 3.12 (/opt/alt/python312/bin/python3) WSGI & CGI',
+        'php-api': 'LiteSpeed PHP 8.3 (/opt/alt/php83/usr/bin/php)',
+        'nextjs-react': 'GitHub Actions static export (npm run build)',
+        'ruby-rack': 'Ruby 3.3 (/opt/alt/ruby33/bin/ruby) Rack & CGI',
+        'java-graalvm': 'GraalVM JDK 21 native-image --static --libc=musl'
       };
 
       function updateBuilder() {
         const stack = stackSelect.value;
-        const rawSlug = slugInput.value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'my-experiment';
+        const rawSlug = slugInput.value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-') || 'my-project';
         cmdPreview.textContent = './scripts/new-lab.sh ' + stack + ' ' + rawSlug;
         cmdDetails.innerHTML =
-          '&bull; Target Repo: <code>/Users/carlossilveira/Documents/Personal/carlossilveiradev/lab-' + rawSlug + '</code><br>' +
-          '&bull; Git Remote: <code>git@github-personal:carlos-silveira/lab-' + rawSlug + '.git</code><br>' +
-          '&bull; Build Strategy: <code>' + buildStrategies[stack] + '</code><br>' +
-          '&bull; Live URL: <code>https://carlossilveira.dev/lab/' + rawSlug + '/</code>';
+          '<div><strong>Local Directory:</strong> <code>lab-' + rawSlug + '</code></div>' +
+          '<div><strong>GitHub Remote:</strong> <code>git@github-personal:carlos-silveira/lab-' + rawSlug + '.git</code></div>' +
+          '<div><strong>Build Strategy:</strong> <code>' + buildStrategies[stack] + '</code></div>' +
+          '<div><strong>Destination URL:</strong> <code>https://carlossilveira.dev/lab/' + rawSlug + '/</code></div>';
       }
 
       stackSelect.addEventListener('change', updateBuilder);
@@ -1010,8 +912,8 @@
         try {
           await navigator.clipboard.writeText(cmdPreview.textContent);
           const original = copyBtn.textContent;
-          copyBtn.textContent = 'Copied to Clipboard!';
-          setTimeout(function () { copyBtn.textContent = original; }, 1800);
+          copyBtn.textContent = 'Copied';
+          setTimeout(function () { copyBtn.textContent = original; }, 1600);
         } catch (_) {}
       });
     })();

@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Next.js Lab Starter | carlossilveira.dev',
-  description: 'Next.js static export starter running under /lab/nextjs-demo on Spaceship.',
+  title: 'Next.js Lab Starter — Carlos Silveira',
+  description: 'Next.js static export starter running under /lab/nextjs-demo.',
 };
 
 export default function RootLayout({ children }) {
@@ -12,10 +12,13 @@ export default function RootLayout({ children }) {
       <body
         style={{
           margin: 0,
-          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
-          background: 'light-dark(#f8f6f6, #02040a)',
-          color: 'light-dark(#0a0f1c, #f8fafc)',
-          padding: '3rem 1.5rem',
+          fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', sans-serif",
+          fontSize: '17px',
+          lineHeight: 1.5,
+          background: 'light-dark(#f5f5f7, #000000)',
+          color: 'light-dark(#1d1d1f, #f5f5f7)',
+          padding: '48px 24px 96px',
+          WebkitFontSmoothing: 'antialiased',
         }}
       >
         {children}

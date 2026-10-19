@@ -6,10 +6,10 @@
 
 | Path | Purpose |
 | :--- | :--- |
-| `public/` | Deployable `/lab/` Hub (`index.html`) and live out-of-the-box language runtime micro-apps (`php-runtime/`, `python-wsgi/`, `ruby-rack/`). |
+| `public/` | Deployable `/lab/` Hub (`index.html`) and live out-of-the-box language runtime micro-apps (`php-runtime/`, `python-wsgi/`, `ruby-rack/`, `go-runtime/`). |
 | `starters/` | Multi-language starter templates for `php-api`, `python-django`, `nextjs-react`, `go-cgi`, `rust-cgi`, `ruby-rack`, and `java-graalvm`. |
 | `scripts/new-lab.sh` | Executable CLI (`./scripts/new-lab.sh <stack> <slug>`) that scaffolds a new `/lab/<slug>` experiment repository with Git, skills, and CI/CD pre-configured. |
-| `.agents/skills/` | Reusable AI Agent Skills (`techy-design-language` and `spaceship-multi-runtime`) automatically copied into every new lab repo. |
+| `.agents/skills/` | Reusable AI Agent Skills (`apple-ui-design` and `spaceship-multi-runtime`) automatically copied into every new lab repo. |
 | `docs/AI_ACTIVITY.md` | Reverse-chronological log of all AI-driven changes in this repository. |
 
 ---
@@ -44,12 +44,22 @@
 
 ---
 
-## 4. Design System & Modern Web Standards
+## 4. Mandatory Design System: Apple UI Design System (`.agents/skills/apple-ui-design/SKILL.md`)
 
-All UI templates and frontends must follow `.agents/skills/techy-design-language/SKILL.md`:
-- **Dark Canvas**: `#02040a` (surfaces `#0a0f1c`, `rgba(255,255,255,0.02)`–`0.05`, border `rgba(255,255,255,0.08)`)
-- **Light Canvas**: `#f8f6f6` (cards `#ffffff`, border `rgba(0,0,0,0.08)`)
-- **Primary Accent**: `#00b4ff` (Electric Cyan) + `#2b7cee` (Royal Blue)
+**STRICT RULE**: Do NOT use "hacker / terminal / cyberpunk / skynet" aesthetics (no pulsing neon dots, no `//` or `[01]` prefixes, no `NODE_58` / `SYS_READY` jargon, no dark-by-default neon cyan `#00b4ff` grids).
+All UI templates and frontends must follow `.agents/skills/apple-ui-design/SKILL.md`:
+- **Typography**:
+  - `font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', sans-serif;`
+  - `--text-hero: 600 48px/1.1`
+  - `--text-title: 600 32px/1.2`
+  - `--text-body: 400 17px/1.5`
+  - `--text-caption: 400 13px/1.4`
+- **Color Philosophy**:
+  - **Light Mode**: `--bg-primary: #ffffff`, `--bg-secondary: #f5f5f7`, `--text-primary: #1d1d1f`, `--text-secondary: #86868b`, `--accent: #0071e3`.
+  - **Dark Mode**: `--bg-primary: #000000`, `--bg-secondary: #1d1d1f`, `--text-primary: #f5f5f7`, `--text-secondary: #86868b`, `--accent: #0071e3`.
+- **Spacing Rhythm**: `4px / 8px / 16px / 24px / 48px / 96px`.
+- **Cards**: `background: rgba(255,255,255,0.8)` (dark `rgba(29,29,31,0.8)`), `backdrop-filter: blur(20px)`, `border-radius: 18px`, `border: 1px solid rgba(0,0,0,0.05)`, `box-shadow: 0 4px 24px rgba(0,0,0,0.06)`.
+- **Pill Buttons**: `background: #0071e3`, `color: white`, `padding: 12px 24px`, `border-radius: 980px`, `font-weight: 500`, `min-height: 44px`, `transition: all 0.2s ease`, `:hover { transform: scale(1.02); filter: brightness(1.1); }`.
 - **Color Scheme Toggle**: Use `<meta name="color-scheme" content="light dark">`, CSS `light-dark()`, and `:root:has(> head > meta[name="color-scheme"][content="..."])` without FOUC.
 
 ---

@@ -4,4 +4,5 @@
 - **Git Identity**: `Carlos Silveira <carlos@personal.me>`
 - **Target Path on `server58`**: `/home/bfjydpuzth/carlossilveira.dev/lab/__LAB_SLUG__/`
 - **Compilation Rule**: Compile to a static Linux musl binary (`native-image --static --libc=musl Main index.cgi`) in GitHub Actions, or route heavy stateful JVM services to an external container via CNAME.
+- **Design System**: Read `.agents/skills/apple-ui-design/SKILL.md`.
 - **Audit Log**: Document every AI change in `docs/AI_ACTIVITY.md`.

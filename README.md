@@ -1,9 +1,9 @@
 # Carlos Silveira — Multi-Stack Playground Kit (`carlossilveira.dev/lab/`)
 
-[![Live Lab Hub](https://img.shields.io/badge/Live_Hub-carlossilveira.dev%2Flab%2F-00b4ff?style=flat-square)](https://carlossilveira.dev/lab/)
-[![Account](https://img.shields.io/badge/GitHub-carlos--silveira-02040a?style=flat-square)](https://github.com/carlos-silveira)
+[![Live Lab Hub](https://img.shields.io/badge/Live_Hub-carlossilveira.dev%2Flab%2F-0071e3?style=flat-square)](https://carlossilveira.dev/lab/)
+[![Account](https://img.shields.io/badge/GitHub-carlos--silveira-1d1d1f?style=flat-square)](https://github.com/carlos-silveira)
 
-Starter templates, CloudLinux multi-runtime wrappers, and a zero-friction CLI generator (`./scripts/new-lab.sh`) for spinning up polyglot web applications and experiments at **`https://carlossilveira.dev/lab/<slug>/`** on Spaceship Web Hosting Essential (`server58.shared.spaceship.host`).
+Starter templates, CloudLinux multi-runtime wrappers, and a zero-friction CLI generator (`./scripts/new-lab.sh`) for spinning up polyglot web applications and experiments at **`https://carlossilveira.dev/lab/<slug>/`** on Spaceship Web Hosting Essential (`server58.shared.spaceship.host`), designed with the **Apple UI Design System** (`.agents/skills/apple-ui-design/SKILL.md`).
 
 ---
 
@@ -13,10 +13,11 @@ The `public/` directory deploys directly to `/home/bfjydpuzth/carlossilveira.dev
 
 | Endpoint | Runtime on `server58` | Description |
 | :--- | :--- | :--- |
-| [`/lab/`](https://carlossilveira.dev/lab/) | Static HTML5 + CSS `light-dark()` | Interactive Multi-Language Playground Hub, Runtime Matrix & CLI Generator Builder. |
-| [`/lab/php-runtime/`](https://carlossilveira.dev/lab/php-runtime/) | LiteSpeed PHP 8.3 (`/opt/alt/php83/usr/bin/php`) | Live PHP 8.3 Runtime Inspector, OPcache/JIT Telemetry & CPU/Hash Benchmark (`?format=json` supported). |
-| [`/lab/python-wsgi/`](https://carlossilveira.dev/lab/python-wsgi/) | CloudLinux Python 3.12 (`/opt/alt/python312/bin/python3`) | Live Python 3.12 CGI/WSGI Micro-App & JSON Telemetry API (`?format=json` supported). |
-| [`/lab/ruby-rack/`](https://carlossilveira.dev/lab/ruby-rack/) | CloudLinux Ruby 3.3 (`/opt/alt/ruby33/bin/ruby`) | Live Ruby 3.3 CGI/Rack Micro-App & Fiber/GC Inspector (`?format=json` supported). |
+| [`/lab/`](https://carlossilveira.dev/lab/) | Static HTML5 + CSS `light-dark()` | Interactive Multi-Language Playground Hub, Runtime Reference & Project Generator. |
+| [`/lab/php-runtime/`](https://carlossilveira.dev/lab/php-runtime/) | LiteSpeed PHP 8.3 (`/opt/alt/php83/usr/bin/php`) | Live PHP 8.3 Runtime Inspector, OPcache Status & SHA-256/Array Benchmark (`?format=json` supported). |
+| [`/lab/python-wsgi/`](https://carlossilveira.dev/lab/python-wsgi/) | CloudLinux Python 3.12 (`/opt/alt/python312/bin/python3`) | Live Python 3.12 CGI/WSGI Service & JSON API (`?format=json` supported). |
+| [`/lab/ruby-rack/`](https://carlossilveira.dev/lab/ruby-rack/) | CloudLinux Ruby 3.3 (`/opt/alt/ruby33/bin/ruby`) | Live Ruby 3.3 CGI/Rack Service & GC/YJIT Inspector (`?format=json` supported). |
+| [`/lab/go-runtime/`](https://carlossilveira.dev/lab/go-runtime/) | Go 1.23 Linux `amd64` Static Binary | Live Go HTTP/CGI Native Binary (`?format=json` supported). |
 
 ---
 
@@ -44,7 +45,7 @@ Run `./scripts/new-lab.sh <stack> <slug>` from this repository:
 
 What `new-lab.sh` automates:
 1. Copies `starters/<stack>` into `/Users/carlossilveira/Documents/Personal/carlossilveiradev/lab-<slug>`.
-2. Replaces template placeholders (`__LAB_SLUG__`, `__LAB_STACK__`) across configs, code, and `.htaccess`.
-3. Copies `.agents/skills/` (`techy-design-language` + `spaceship-multi-runtime`), `AGENTS.md`, and initializes `docs/AI_ACTIVITY.md`.
+2. Replaces template placeholders (`__LAB_SLUG__`, `nextjs-demo`) across configs, code, and `.htaccess`.
+3. Copies `.agents/skills/` (`apple-ui-design` + `spaceship-multi-runtime`), `AGENTS.md`, and initializes `docs/AI_ACTIVITY.md`.
 4. Initializes Git with local identity (`Carlos Silveira <carlos@personal.me>`) and remote `git@github-personal:carlos-silveira/lab-<slug>.git`.
 5. Generates `.github/workflows/deploy.yml` configured to build and deploy directly to `/home/bfjydpuzth/carlossilveira.dev/lab/<slug>/`.

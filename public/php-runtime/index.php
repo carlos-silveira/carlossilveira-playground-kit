@@ -2,16 +2,14 @@
 declare(strict_types=1);
 
 /**
- * Carlos Silveira Playground — Live PHP 8.3 Runtime Inspector & Micro-Benchmark
+ * Carlos Silveira Playground — PHP 8.3 Runtime & Benchmark
  * Live URL: https://carlossilveira.dev/lab/php-runtime/
  * Binary on Spaceship server58: /opt/alt/php83/usr/bin/php
  */
 
 $t0 = hrtime(true);
-
 $iterations = isset($_GET['iterations']) ? max(1000, min(200000, (int) $_GET['iterations'])) : 25000;
 
-// 1. Run CPU / Hash / Array Micro-Benchmark
 $hashStart = hrtime(true);
 $acc = '';
 for ($i = 0; $i < $iterations; $i++) {
@@ -30,13 +28,12 @@ $arrayMs = round((hrtime(true) - $arrayStart) / 1e6, 3);
 $opcacheStatus = function_exists('opcache_get_status') ? @opcache_get_status(false) : false;
 $extensions = get_loaded_extensions();
 sort($extensions, SORT_NATURAL | SORT_FLAG_CASE);
-
 $totalMs = round((hrtime(true) - $t0) / 1e6, 3);
 
 $payload = [
     'ok' => true,
     'app' => 'php-runtime',
-    'title' => 'PHP Runtime Inspector & Micro-Benchmark',
+    'title' => 'PHP Runtime & Benchmark',
     'runtime' => [
         'php_version' => PHP_VERSION,
         'zend_version' => zend_version(),
@@ -83,163 +80,218 @@ if ($wantsJson) {
       document.querySelector('meta[name="color-scheme"]').content = localStorage.getItem("color-scheme") ?? "light dark";
     } catch (_) {}
   </script>
-  <title>PHP <?= htmlspecialchars(PHP_VERSION) ?> Runtime Inspector &amp; Benchmark — carlossilveira.dev/lab/</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+  <title>PHP <?= htmlspecialchars(PHP_VERSION) ?> Runtime — Carlos Silveira Lab</title>
   <style>
     :root {
       color-scheme: light dark;
-      --bg: light-dark(#f8f6f6, #02040a);
-      --card: light-dark(rgba(255,255,255,0.82), rgba(255,255,255,0.03));
-      --code: light-dark(#0f172a, #050914);
-      --border: light-dark(rgba(0,0,0,0.08), rgba(255,255,255,0.08));
-      --text: light-dark(#0a0f1c, #f8fafc);
-      --muted: light-dark(#475569, #94a3b8);
-      --primary: #00b4ff;
-      --emerald: #10b981;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', sans-serif;
+      --font-mono: 'SF Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+      --text-hero: 600 48px/1.1 var(--font-sans);
+      --text-title: 600 32px/1.2 var(--font-sans);
+      --text-body: 400 17px/1.5 var(--font-sans);
+      --text-caption: 400 13px/1.4 var(--font-sans);
+      --bg-primary: light-dark(#ffffff, #000000);
+      --bg-secondary: light-dark(#f5f5f7, #1d1d1f);
+      --text-primary: light-dark(#1d1d1f, #f5f5f7);
+      --text-secondary: #86868b;
+      --accent: #0071e3;
+      --accent-link: light-dark(#0071e3, #2997ff);
+      --card-bg: light-dark(rgba(255,255,255,0.8), rgba(29,29,31,0.8));
+      --card-border: light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.08));
+      --card-shadow: light-dark(0 4px 24px rgba(0,0,0,0.06), 0 4px 24px rgba(0,0,0,0.4));
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 48px;
+      --space-2xl: 96px;
     }
     :root:has(> head > meta[name="color-scheme"][content="dark"]) { color-scheme: dark; }
     :root:has(> head > meta[name="color-scheme"][content="light"]) { color-scheme: light; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 2.5rem 1.5rem 4rem;
-      line-height: 1.6;
+      font: var(--text-body);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+      -webkit-font-smoothing: antialiased;
     }
-    .wrap { max-width: 1040px; margin: 0 auto; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      animation: fadeUp 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-xl);
+    }
     .back-link {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--primary);
+      font: var(--text-caption);
+      font-weight: 500;
+      color: var(--accent-link);
       text-decoration: none;
     }
-    .badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--primary);
+    .eyebrow {
+      font: var(--text-caption);
+      font-weight: 600;
+      color: var(--accent-link);
+      margin-bottom: var(--space-sm);
     }
-    h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -0.04em; margin: 0.4rem 0 0.75rem; line-height: 1; }
-    .subtitle { color: var(--muted); font-weight: 300; max-width: 720px; margin: 0 0 2rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 1.25rem;
-      padding: 1.25rem;
+    h1 {
+      font: var(--text-hero);
+      letter-spacing: -0.025em;
+      margin: 0 0 var(--space-md);
+    }
+    .subtitle {
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 0 var(--space-xl);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      padding: var(--space-lg);
+      transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
     .stat-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font: var(--text-caption);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
     }
-    .stat-val { font-size: 1.55rem; font-weight: 900; letter-spacing: -0.03em; margin-top: 0.3rem; }
+    .stat-val {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
     .controls {
       display: flex;
-      gap: 0.75rem;
+      gap: var(--space-sm);
       flex-wrap: wrap;
-      margin-bottom: 2rem;
+      margin-bottom: var(--space-lg);
     }
-    .btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      padding: 0.7rem 1.1rem;
-      border-radius: 0.75rem;
+    .btn-primary, .btn-secondary {
+      padding: 12px 24px;
+      border-radius: 980px;
+      font: var(--text-caption);
+      font-size: 14px;
+      font-weight: 500;
+      min-height: 44px;
       text-decoration: none;
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--card);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
     }
-    .btn.primary {
-      background: var(--primary);
-      color: #02040a;
-      border-color: var(--primary);
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
     }
-    .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2rem; }
+    .btn-primary:hover, .btn-secondary:hover {
+      transform: scale(1.02);
+      filter: brightness(1.1);
+    }
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--card-border);
+    }
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
     .pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      padding: 0.25rem 0.6rem;
-      border-radius: 9999px;
-      background: var(--card);
-      border: 1px solid var(--border);
+      font: var(--text-caption);
+      padding: 4px 12px;
+      border-radius: 980px;
+      background: var(--bg-primary);
+      border: 1px solid var(--card-border);
     }
     pre {
-      background: var(--code);
-      color: #38bdf8;
-      border: 1px solid var(--border);
-      border-radius: 1.25rem;
-      padding: 1.25rem;
+      margin: 0;
       overflow-x: auto;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    code {
+      font-family: var(--font-mono);
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
   <main class="wrap">
     <div class="topbar">
-      <a class="back-link" href="/lab/">&larr; Back to Playground Hub (/lab/)</a>
-      <a class="btn primary" href="?format=json">Raw JSON (?format=json)</a>
+      <a class="back-link" href="/lab/">&larr; Back to Engineering Lab</a>
+      <a class="btn-primary" href="?format=json">View JSON Response</a>
     </div>
 
-    <div class="badge">LIVE RUNTIME // LITESPEED PHP <?= htmlspecialchars(PHP_VERSION) ?></div>
-    <h1>PHP Runtime Inspector &amp; Benchmark.</h1>
+    <div class="eyebrow">PHP <?= htmlspecialchars(PHP_VERSION) ?> Runtime</div>
+    <h1>PHP Runtime &amp; Benchmark.</h1>
     <p class="subtitle">
-      Executing natively on <code>server58.shared.spaceship.host</code> via LiteSpeed SAPI (<code><?= htmlspecialchars($payload['runtime']['binary_path']) ?></code>).
+      Running natively on LiteSpeed SAPI (<code><?= htmlspecialchars($payload['runtime']['binary_path']) ?></code>).
     </p>
 
     <div class="grid">
-      <div class="stat">
-        <div class="stat-label">PHP VERSION / SAPI</div>
-        <div class="stat-val"><?= htmlspecialchars(PHP_VERSION . ' (' . PHP_SAPI . ')') ?></div>
+      <div class="card">
+        <div class="stat-label">PHP Version</div>
+        <div class="stat-val"><?= htmlspecialchars(PHP_VERSION) ?></div>
       </div>
-      <div class="stat">
-        <div class="stat-label">SHA-256 THROUGHPUT</div>
-        <div class="stat-val"><?= number_format($payload['benchmark']['sha256_ops_per_sec']) ?> ops/s</div>
+      <div class="card">
+        <div class="stat-label">SHA-256 Throughput</div>
+        <div class="stat-val"><?= number_format($payload['benchmark']['sha256_ops_per_sec']) ?> /s</div>
       </div>
-      <div class="stat">
-        <div class="stat-label">TOTAL EXECUTION TIME</div>
+      <div class="card">
+        <div class="stat-label">Execution Time</div>
         <div class="stat-val"><?= htmlspecialchars((string) $totalMs) ?> ms</div>
       </div>
-      <div class="stat">
-        <div class="stat-label">LOADED EXTENSIONS</div>
-        <div class="stat-val"><?= count($extensions) ?> modules</div>
+      <div class="card">
+        <div class="stat-label">Loaded Extensions</div>
+        <div class="stat-val"><?= count($extensions) ?></div>
       </div>
     </div>
 
     <div class="controls">
-      <a class="btn" href="?iterations=10000">10k Hashes</a>
-      <a class="btn" href="?iterations=25000">25k Hashes</a>
-      <a class="btn" href="?iterations=75000">75k Hashes</a>
-      <a class="btn" href="?iterations=150000">150k Hashes</a>
+      <a class="btn-secondary" href="?iterations=10000">10,000 Iterations</a>
+      <a class="btn-secondary" href="?iterations=25000">25,000 Iterations</a>
+      <a class="btn-secondary" href="?iterations=75000">75,000 Iterations</a>
+      <a class="btn-secondary" href="?iterations=150000">150,000 Iterations</a>
     </div>
 
-    <div class="badge" style="margin-bottom:0.75rem;">LOADED PHP EXTENSIONS (<?= count($extensions) ?>)</div>
-    <div class="pills">
-      <?php foreach ($extensions as $ext): ?>
-        <span class="pill"><?= htmlspecialchars($ext) ?></span>
-      <?php endforeach; ?>
+    <div class="card" style="margin-bottom: var(--space-lg);">
+      <div class="stat-label">Active Extensions (<?= count($extensions) ?>)</div>
+      <div class="pills">
+        <?php foreach ($extensions as $ext): ?>
+          <span class="pill"><?= htmlspecialchars($ext) ?></span>
+        <?php endforeach; ?>
+      </div>
     </div>
 
-    <div class="badge" style="margin-bottom:0.75rem;">LIVE TELEMETRY PAYLOAD</div>
-    <pre><?= htmlspecialchars((string) json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) ?></pre>
+    <div class="card">
+      <div class="stat-label" style="margin-bottom: var(--space-sm);">JSON Payload</div>
+      <pre><?= htmlspecialchars((string) json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) ?></pre>
+    </div>
   </main>
 </body>
 </html>
