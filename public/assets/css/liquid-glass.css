@@ -534,8 +534,18 @@ h1, h2, h3, h4, .lg-display {
 }
 
 @media (max-width: 640px) {
-  .lg-grid-3 {
+  .lg-grid-3,
+  .lg-grid-4 {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .lg-container {
+    width: 100%;
+    padding-inline: 14px;
+    box-sizing: border-box;
+  }
+  .lg-card {
+    padding: 20px 16px;
   }
 }
 

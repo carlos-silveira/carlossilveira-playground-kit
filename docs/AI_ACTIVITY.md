@@ -2,6 +2,15 @@
 
 All AI agent actions and modifications in this repository are recorded below in reverse-chronological order.
 
+## 2026-10-19 — Mobile Responsive Grid & Container Refinements
+
+- **Agent**: Antigravity Assistant
+- **Summary of Changes**:
+  - Expanded `@media (max-width: 640px)` rules in `liquid-glass.css` to collapse `.lg-grid-4` to 1 column alongside `.lg-grid-3`.
+  - Added mobile container padding (`padding-inline: 14px; box-sizing: border-box;`) to `.lg-container` and reduced card padding to `20px 16px` on phones.
+
+---
+
 ## 2026-10-19 — Production Deployment: Material Design 3 Ocean Blue & Lucide Icons to Spaceship server58
 
 - **Agent**: Antigravity Assistant
