@@ -197,6 +197,7 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
       overflow-x: auto;
     }
   </style>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- High-Performance Living Ambient Mesh Backdrop -->
@@ -228,7 +229,7 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
               Herramientas
             </a>
             <a href="/lab/" class="cs-nav-link is-active" aria-current="page">
-              Mis Labs 🔒
+              Mis Labs
             </a>
             <a href="#deploy-workflow" class="cs-nav-link">
               Desplegar Proyecto
@@ -294,27 +295,27 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
         <div class="cs-mobile-drawer" id="cs-mobile-drawer" aria-hidden="true">
           <nav class="cs-mobile-nav">
             <a href="/" class="cs-mobile-link">
-              <span class="cs-mobile-icon">📰</span>
+              <span class="cs-mobile-icon"><i data-lucide="newspaper" style="width:16px;height:16px;"></i></span>
               <span>Blog</span>
             </a>
             <a href="/#articulos" class="cs-mobile-link">
-              <span class="cs-mobile-icon">✍️</span>
+              <span class="cs-mobile-icon"><i data-lucide="book-open" style="width:16px;height:16px;"></i></span>
               <span>Artículos</span>
             </a>
             <a href="/tools/" class="cs-mobile-link">
-              <span class="cs-mobile-icon">🛠️</span>
+              <span class="cs-mobile-icon"><i data-lucide="calculator" style="width:16px;height:16px;"></i></span>
               <span>Herramientas (/tools/)</span>
             </a>
             <a href="/lab/" class="cs-mobile-link is-active" aria-current="page">
-              <span class="cs-mobile-icon">🔒</span>
+              <span class="cs-mobile-icon"><i data-lucide="lock" style="width:16px;height:16px;"></i></span>
               <span>Mis Labs</span>
             </a>
             <a href="#deploy-workflow" class="cs-mobile-link">
-              <span class="cs-mobile-icon">🚀</span>
+              <span class="cs-mobile-icon"><i data-lucide="rocket" style="width:16px;height:16px;"></i></span>
               <span>Desplegar Proyecto</span>
             </a>
             <a href="?logout=1" class="cs-mobile-link" style="color: var(--danger);">
-              <span class="cs-mobile-icon">🚪</span>
+              <span class="cs-mobile-icon"><i data-lucide="log-out" style="width:16px;height:16px;"></i></span>
               <span>Cerrar sesión (<?= htmlspecialchars((string) $csLabUser) ?>)</span>
             </a>
           </nav>
@@ -329,7 +330,7 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
       <div class="lg-card" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
           <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px;">
-            <span class="lg-badge lg-badge-success">&#128274; Sesión Privada Activa</span>
+            <span class="lg-badge lg-badge-success"><i data-lucide="lock" style="width:13px;height:13px;display:inline-block;vertical-align:middle;margin-right:4px;"></i> Sesión Privada Activa</span>
             <span class="lg-badge">Liquid Glass Design System</span>
           </div>
           <h1 class="lg-hero-title">
@@ -612,5 +613,6 @@ if (isset($_GET['format']) && $_GET['format'] === 'json') {
       });
     })();
   </script>
+  <script>if (window.lucide) { lucide.createIcons(); }</script>
 </body>
 </html>
