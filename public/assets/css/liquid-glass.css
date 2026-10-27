@@ -4,49 +4,42 @@
    ========================================================================== */
 
 :root {
-  color-scheme: light dark;
-  accent-color: #0066ff;
+  color-scheme: dark;
+  accent-color: #7aa2f7;
 
-  --color-scheme: light;
-  @media (prefers-color-scheme: dark) {
-    --color-scheme: dark;
-  }
-  &:has(> head > meta[name="color-scheme"][content="dark"]) {
-    color-scheme: dark;
-    --color-scheme: dark;
-  }
+  --color-scheme: dark;
   &:has(> head > meta[name="color-scheme"][content="light"]) {
     color-scheme: light;
     --color-scheme: light;
   }
 
-  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'SF Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --font-mono: 'Fira Code', 'SF Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-mono);
+  --font-sans: var(--font-mono);
   --container-wide: min(1380px, 94vw);
 
-  /* Light Mode M3 Ocean Blue */
-  --canvas-bg: #f4f8fc;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
+  /* Tokyo Night Storm / Cursor IDE Dark Mode (Default) */
+  --canvas-bg: #16161e;
+  --text-primary: #c0caf5;
+  --text-secondary: #a9b1d6;
+  --text-muted: #565f89;
 
-  --lg-surface: #ffffff;
-  --lg-surface-elevated: #eaf2fb;
-  --lg-surface-interactive: #f0f6fc;
-  --lg-border: #cbdff5;
-  --lg-border-outer: rgba(2, 132, 199, 0.08);
+  --lg-surface: #1a1b26;
+  --lg-surface-elevated: #24283b;
+  --lg-surface-interactive: #292e42;
+  --lg-border: #292e42;
+  --lg-border-outer: #1f2335;
   --lg-specular: none;
-  --lg-shadow: 0 4px 20px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(2, 132, 199, 0.05);
+  --lg-shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
   --lg-blur: none;
 
-  --accent-primary: #0284c7;
-  --accent-secondary: #0369a1;
-  --accent-aqua: #38bdf8;
+  --accent-primary: #7aa2f7;
+  --accent-secondary: #3d59a1;
+  --accent-aqua: #7dcfff;
   --accent-gradient: var(--accent-primary);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  --success: #9ece6a;
+  --warning: #e0af68;
+  --danger: #f7768e;
 
   --radius-xl: 12px;     /* m3.corner.medium (Cards: 12px) */
   --radius-lg: 12px;
@@ -55,42 +48,32 @@
   --radius-pill: 20px;   /* m3.corner.full (Buttons: 40px/20px) */
   --spring-easing: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --scrollbar-track: light-dark(#e2e8f0, #0f172a);
-  --scrollbar-thumb: light-dark(#94a3b8, #334155);
+  --scrollbar-track: #16161e;
+  --scrollbar-thumb: #292e42;
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) {
-    --canvas-bg: #070c18;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
+:root:has(> head > meta[name="color-scheme"][content="light"]) {
+  --canvas-bg: #e1e2e7;
+  --text-primary: #3760bf;
+  --text-secondary: #4c505e;
+  --text-muted: #848cb5;
 
-    --lg-surface: #0f1b33;
-    --lg-surface-elevated: #17294d;
-    --lg-surface-interactive: #152445;
-    --lg-border: #1e3152;
-    --lg-border-outer: #182640;
-    --lg-specular: none;
-    --lg-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(56, 189, 248, 0.1) inset;
-  }
-}
-
-:root:has(> head > meta[name="color-scheme"][content="dark"]) {
-  --canvas-bg: #070c18;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-
-  --lg-surface: #0f1b33;
-  --lg-surface-elevated: #17294d;
-  --lg-surface-interactive: #152445;
-  --lg-border: #1e3152;
-  --lg-border-outer: #182640;
+  --lg-surface: #d5d6db;
+  --lg-surface-elevated: #cbccd1;
+  --lg-surface-interactive: #dfe0e5;
+  --lg-border: #b4b5b9;
+  --lg-border-outer: #c4c5c9;
   --lg-specular: none;
-  --lg-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(56, 189, 248, 0.1) inset;
+  --lg-shadow: 0 8px 24px rgba(26, 27, 38, 0.08);
+  --accent-primary: #2e7de9;
+  --accent-secondary: #188092;
+  --success: #587539;
+  --warning: #8c6c3e;
+  --danger: #f52a65;
+  --scrollbar-track: #e1e2e7;
+  --scrollbar-thumb: #b4b5b9;
 }
 
 @supports not (scrollbar-color: auto) {
@@ -266,27 +249,34 @@ body {
   border-color: var(--accent-primary);
 }
 
-.cs-theme-icon-light {
+.cs-theme-opt-dark {
   display: none;
 }
-.cs-theme-icon-dark {
-  display: block;
+.cs-theme-opt-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .cs-theme-icon-light {
-    display: block;
-  }
-  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .cs-theme-icon-dark {
-    display: none;
-  }
+:root:has(> head > meta[name="color-scheme"][content="light"]) .cs-theme-opt-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
-
-:root:has(> head > meta[name="color-scheme"][content="dark"]) .cs-theme-icon-light {
-  display: block;
-}
-:root:has(> head > meta[name="color-scheme"][content="dark"]) .cs-theme-icon-dark {
+:root:has(> head > meta[name="color-scheme"][content="light"]) .cs-theme-opt-light {
   display: none;
+}
+
+.cs-cursor-theme-pill {
+  width: auto !important;
+  height: 34px !important;
+  min-width: 72px;
+  padding: 0 12px !important;
+  border-radius: 7px !important;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  gap: 6px;
 }
 
 .cs-mobile-menu-btn {

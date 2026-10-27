@@ -2,6 +2,16 @@
 
 All AI agent actions and modifications in this repository are recorded below in reverse-chronological order.
 
+## 2026-10-27 — Cursor Tokyo Night IDE Typography & Contrast Disc Theme Switcher
+
+- **Agent**: Antigravity Assistant
+- **Summary of Changes**:
+  - Upgraded font family to `Fira Code`, `SF Mono` with `500` base weight and `700` bold hierarchy.
+  - Replaced sun/moon toggle with `.cs-cursor-theme-pill` (`◐ Night` / `◑ Day`) and synced toggle state in `liquid-glass.js` and `liquid-glass.css`.
+  - Added `defer` to Lucide script in `public/index.php`.
+
+---
+
 ## 2026-10-19 — Mobile Responsive Grid & Container Refinements
 
 - **Agent**: Antigravity Assistant

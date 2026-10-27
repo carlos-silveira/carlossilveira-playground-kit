@@ -23,22 +23,15 @@
 
   function applyScheme(stored) {
     if (meta) {
-      meta.content = stored ?? 'light dark';
+      meta.content = stored ?? 'dark';
     }
   }
 
   function toggleTheme() {
-    const systemScheme = getSystemScheme();
-    const currentRendered = getStoredScheme() ?? systemScheme;
+    const currentRendered = getStoredScheme() ?? (meta && meta.content === 'light' ? 'light' : 'dark');
     const targetScheme = currentRendered === 'dark' ? 'light' : 'dark';
-
-    if (targetScheme !== systemScheme) {
-      try { localStorage.setItem('color-scheme', targetScheme); } catch (_) {}
-      applyScheme(targetScheme);
-    } else {
-      try { localStorage.removeItem('color-scheme'); } catch (_) {}
-      applyScheme(null);
-    }
+    try { localStorage.setItem('color-scheme', targetScheme); } catch (_) {}
+    applyScheme(targetScheme);
   }
 
   themeToggleBtns.forEach((btn) => {
